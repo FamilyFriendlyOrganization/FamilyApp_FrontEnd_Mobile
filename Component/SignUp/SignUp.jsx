@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -17,14 +17,59 @@ import key from "../../assets/SignUp/key.png";
 import mail from "../../assets/SignUp/mail.png";
 import picture from "../../assets/SignUp/picture.png";
 import user from "../../assets/SignUp/user.png";
-import backgroundImage from "../../assets/Login/background.png"; // Hình nền chính
-import mainBackground from "../../assets/Login/main.png"; // Hình main.png bọc component
-import xicon from "../../assets/SignUp/xicon.png"; // Biểu tượng X
+import backgroundImage from "../../assets/Login/background.png";
+import mainBackground from "../../assets/Login/main.png";
+import xicon from "../../assets/SignUp/xicon.png";
+import { REGISTER_URL } from "../../utils/api";
+import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const SignUp = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [displayname, setDisplayName] = useState("");
+  const navigation = useNavigation(); 
+
+  const handleSignUp = async () => {
+    const accountInfo = {
+      username: username,
+      password: password,
+      email: email,
+      accountStatus: 1,
+      displayname: displayname,
+    };
+
+    try {
+      const response = await axios.post(`${REGISTER_URL}`, accountInfo, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        alert("Registration successful!");
+        navigation.navigate("Login"); 
+      } else {
+        alert(`Registration failed: ${response.data}`);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
+  const handleSubmit = async () => {
+    await handleSignUp();
+  };
+
+  const handleGoBack = () => {
+    navigation.navigate("Home"); 
+  };
+
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
-      {/* Phần chứa lời chào */}
+      {/* Greeting section */}
       <View style={styles.greetingContainer}>
         <View style={styles.greetingBox}>
           <Text style={styles.greetingText}>Chào</Text>
@@ -37,7 +82,12 @@ const SignUp = () => {
 
         <View style={styles.inputContainer}>
           <Image source={user} style={styles.icon} resizeMode="contain" />
-          <TextInput placeholder="Nhập tên tài khoản" style={styles.input} />
+          <TextInput
+            placeholder="Nhập tên tài khoản"
+            style={styles.input}
+            value={username}
+            onChangeText={setUsername}
+          />
         </View>
 
         <View style={styles.inputContainer}>
@@ -46,12 +96,19 @@ const SignUp = () => {
             placeholder="Nhập mật khẩu"
             secureTextEntry
             style={styles.input}
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
 
         <View style={styles.inputContainer}>
           <Image source={mail} style={styles.icon} resizeMode="contain" />
-          <TextInput placeholder="Nhập email của bạn" style={styles.input} />
+          <TextInput
+            placeholder="Nhập email của bạn"
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
 
         <View style={styles.inputContainer}>
@@ -59,6 +116,8 @@ const SignUp = () => {
           <TextInput
             placeholder="Nhập tên bạn muốn dùng"
             style={styles.input}
+            value={displayname}
+            onChangeText={setDisplayName}
           />
         </View>
 
@@ -66,11 +125,11 @@ const SignUp = () => {
           <Text style={styles.uploadText}>Tải ảnh ngay!</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <Text style={styles.submitButtonText}>Tiếp tục</Text>
         </TouchableOpacity>
 
-        {/* Thiết kế hàng chứa các biểu tượng Facebook, X và GitHub */}
+        {/* Social icons */}
         <View style={styles.socialIconsContainer}>
           <TouchableOpacity>
             <Image

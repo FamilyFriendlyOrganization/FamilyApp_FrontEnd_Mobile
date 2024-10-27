@@ -16,8 +16,92 @@ import googleLogo from "../../assets/Login/google.png";
 import key from "../../assets/Login/key.png";
 import mail from "../../assets/Login/mail.png";
 import xicon from "../../assets/Login/xicon.png";
+import { LOGIN_URL } from "../../utils/api";
 
 const Login = () => {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const Login = async (e) => {
+    e.preventDefault();
+    const accountInfo = {
+      username: null,
+      password: password,
+      email: email,
+      accountStatus: 1,
+      password: password,
+      displayname: displayname
+    };
+
+    try {
+      const response = await axios.post(`${LOGIN_URL}`, accountInfo, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        alert("Login successful!");
+        navigate("/home");
+      } else {
+        alert(`Registration failed: ${response.data}`);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
+  const handleLoginSuccess = async (accountInfo) => {
+    if (accountInfo.accountStatus === 2) {
+      setBlockReason(accountInfo.blockReason);
+      setShowModal(true); // Show modal with block reason
+      setLoading(false);
+      return;
+    }
+
+    setUserName(accountInfo);
+    localStorage.setItem("user", JSON.stringify(accountInfo));
+    // switch (userInfo.role) {
+    //   case 1:
+    //     navigate("/");
+    //     break;
+  }
+
+  const handleLoginFailure = (error) => {
+    console.error("Login Failed", error);
+    setLoading(false);
+  };
+
+  // const loginWithGoogle = async () => {
+  //   if (loading) return;
+  //   setLoading(true);
+  //   try {
+  //     const userInfo = await signInWithGoogle();
+  //     handleLoginSuccess(userInfo);
+  //   } catch (error) {
+  //     handleLoginFailure(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const LoginWithUsername = async (e) => {
+    e.preventDefault();
+    if (loading) return;
+    setLoading(true);
+    try {
+      const accountInfo = await signInWithPhoneNumber(username, password);
+      handleLoginSuccess(accountInfo);
+    } catch (error) {
+      handleLoginFailure(error);
+      window.alert("Wrong credentials!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
       <View style={styles.formContainer}>
@@ -96,8 +180,8 @@ const Login = () => {
         </View>
       </View>
     </ImageBackground>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   background: {
@@ -189,6 +273,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-});
-
+}
+);
 export default Login;
