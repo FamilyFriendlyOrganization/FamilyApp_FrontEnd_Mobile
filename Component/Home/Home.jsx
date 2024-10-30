@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-
+import { useState } from "react";
 // Import assets
 import backgroundHeader from "../../assets/Home/Header/backgroundheader.png";
 import homeIcon from "../../assets/Home/Header/Home.png";
@@ -34,6 +34,7 @@ import mailIcon from "../../assets/Home/Footer/Mail.png";
 import profileIcon from "../../assets/Home/Footer/profile.png";
 
 const Home = () => {
+  const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
   return (
     <View style={styles.container}>
       {/* Phần Header */}
@@ -124,26 +125,41 @@ const Home = () => {
         <Text style={styles.promotionText}></Text>
         <Text style={styles.promotionText}>Tin Tức</Text>
       </View>
-      {/* Phan footer */}
+      {/* Phần Footer */}
       <View style={styles.footerContainer}>
-        <TouchableOpacity style={styles.iconContainer}>
-          <Image source={familyIcon} style={styles.icon} />
+        <TouchableOpacity onPress={() => setActiveTab("home")}>
+          <Image
+            source={require("../../assets/Profile/Footer/home.png")}
+            style={[styles.icon, activeTab === "home" && styles.activeIcon]}
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconContainer}>
-          <Image source={settingsIcon} style={styles.icon} />
+        <TouchableOpacity onPress={() => setActiveTab("calendar")}>
+          <Image
+            source={require("../../assets/Profile/Footer/calendar.png")}
+            style={[styles.icon, activeTab === "calendar" && styles.activeIcon]}
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconContainer}>
-          <Image source={scanIcon} style={[styles.icon, styles.scanIcon]} />
+        <TouchableOpacity onPress={() => setActiveTab("more")}>
+          <Image
+            source={require("../../assets/Profile/Footer/more.png")}
+            style={[styles.icon, activeTab === "more" && styles.activeIcon]}
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconContainer}>
-          <Image source={mailIcon} style={styles.icon} />
+        <TouchableOpacity onPress={() => setActiveTab("money")}>
+          <Image
+            source={require("../../assets/Profile/Footer/money.png")}
+            style={[styles.icon, activeTab === "money" && styles.activeIcon]}
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconContainer}>
-          <Image source={profileIcon} style={styles.icon} />
+        <TouchableOpacity onPress={() => setActiveTab("profile")}>
+          <Image
+            source={require("../../assets/Profile/Footer/profile.png")}
+            style={[styles.icon, activeTab === "profile" && styles.activeIcon]}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -295,6 +311,26 @@ const styles = StyleSheet.create({
     textAlign: "left",
     marginTop: 20,
     color: "#000",
+  },
+  footerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingVertical: 10,
+    backgroundColor: "#f8f8f8",
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+    bottom: -195,
+  },
+  activeIcon: {
+    tintColor: "blue",
+  },
+
+  label: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#6A0DAD",
+    marginBottom: 4,
   },
 });
 
