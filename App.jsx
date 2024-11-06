@@ -7,9 +7,10 @@ import SignUp from "./Component/SignUp/SignUp";
 import Profile from "./Component/Profile/Profile";
 import Calendar from "./Component/Calendar/Calendar";
 import Family from "./Component/Family/Family";
+import SelectFamily from "./Component/Family/SelectFamily";
 
 function App() {
-  return <Family />;
+  return <SelectFamily />;
 }
 
 export default App;
