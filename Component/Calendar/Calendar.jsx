@@ -71,22 +71,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 3, // Reduce padding here
     backgroundColor: "#f8f8f8",
     borderTopWidth: 1,
     borderTopColor: "#ddd",
+    bottom: -4,
   },
   activeIcon: {
     tintColor: "blue",
   },
-
-  label: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#6A0DAD",
-    marginBottom: 4,
+  icon: {
+    width: 40, // Reduce icon size here
+    height: 40, // Reduce icon size here
   },
-
   container: {
     flex: 1,
     justifyContent: "center",

@@ -305,23 +305,6 @@ const styles = StyleSheet.create({
     width: 50, // Biểu tượng scan lớn hơn
     height: 50,
   },
-  promotionText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "left",
-    marginTop: 20,
-    color: "#000",
-  },
-  footerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    paddingVertical: 10,
-    backgroundColor: "#f8f8f8",
-    borderTopWidth: 1,
-    borderTopColor: "#ddd",
-    bottom: -195,
-  },
   activeIcon: {
     tintColor: "blue",
   },
