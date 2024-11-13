@@ -13,7 +13,15 @@ import facebookIcon from "../../assets/Welcome/facebook.png";
 import handIcon from "../../assets/Welcome/hand.png";
 import phoneIcon from "../../assets/Welcome/phone.png";
 import backgroundImage from "../../assets/Welcome/background.png"; // Import hình nền
+import { useNavigation } from "@react-navigation/native";
+
 const Welcome = () => {
+  const navigation = useNavigation();
+
+  // Hàm xử lý khi nhấn nút Login
+  const handleLogin = async () => {
+    navigation.navigate("Login"); // Chuyển sang màn hình Login
+  };
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
       <View style={styles.container}>
@@ -32,7 +40,7 @@ const Welcome = () => {
             />{" "}
             Xin chào, chào mừng trở lại
           </Text>
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Image
               source={googleIcon}
               style={styles.icon}

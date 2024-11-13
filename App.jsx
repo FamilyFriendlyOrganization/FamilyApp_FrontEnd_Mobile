@@ -1,20 +1,26 @@
-import React from "react";
-//import Login from "./Component/Login/Login";
-import Welcome from "./Component/Welcome/Welcome";
-import Home from "./Component/Home/Home";
-import Login from "./Component/Login/Login";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import Welcome from "./Component/Welcome/Welcome"; // Thêm màn hình Welcome
 import SignUp from "./Component/SignUp/SignUp";
-import Profile from "./Component/Profile/Profile";
-import Calendar from "./Component/Calendar/Calendar";
-import Family from "./Component/Family/Family";
-import SelectFamily from "./Component/Family/SelectFamily";
-import ChiTieu from "./Component/QuanLy/ChiTieu";
-import AnUong from "./Component/QuanLy/AnUong";
-import DiChuyen from "./Component/QuanLy/DiChuyen";
-import MuaSam from "./Component/QuanLy/MuaSam";
+import Login from "./Component/Login/Login";
+import Home from "./Component/Home/Home";
 
-function App() {
-  return <MuaSam />;
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false, // Ẩn header cho toàn bộ các màn hình
+        }}
+      >
+        {/* Màn hình Welcome sẽ là màn hình đầu tiên */}
+        <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
-
-export default App;

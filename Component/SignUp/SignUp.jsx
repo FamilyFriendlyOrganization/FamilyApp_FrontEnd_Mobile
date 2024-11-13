@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,21 +7,69 @@ import {
   ImageBackground,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
-// Import images
-import bubbleText from "../../assets/SignUp/bubble_text.png";
+import { useNavigation } from "@react-navigation/native";
+import "react-native-get-random-values"; // Import thư viện này trước
+import { v4 as uuidv4 } from "uuid";
+
+// Import hình ảnh
+import backgroundImage from "../../assets/Login/background.png";
 import facebook from "../../assets/SignUp/facebook.png";
 import github from "../../assets/SignUp/github.png";
 import heart from "../../assets/SignUp/Heart.png";
 import key from "../../assets/SignUp/key.png";
 import mail from "../../assets/SignUp/mail.png";
-import picture from "../../assets/SignUp/picture.png";
 import user from "../../assets/SignUp/user.png";
-import backgroundImage from "../../assets/Login/background.png"; // Hình nền chính
-import mainBackground from "../../assets/Login/main.png"; // Hình main.png bọc component
-import xicon from "../../assets/SignUp/xicon.png"; // Biểu tượng X
+import xicon from "../../assets/SignUp/xicon.png";
 
 const SignUp = () => {
+  const navigation = useNavigation();
+
+  // State quản lý dữ liệu form
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [displayName, setDisplayName] = useState("");
+
+  // Hàm xử lý đăng ký
+  const handleRegister = async () => {
+    const accountId = uuidv4(); // Tạo accountId ngẫu nhiên
+    const payload = {
+      username,
+      password,
+      email,
+      displayName,
+      accountId,
+      accountStatus: 0,
+    };
+
+    try {
+      const response = await fetch("http://10.0.2.2:8080/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        Alert.alert("Thành công", "Đăng ký tài khoản thành công!", [
+          {
+            text: "OK",
+            onPress: () => navigation.navigate("Login"),
+          },
+        ]);
+      } else {
+        const errorData = await response.json();
+        Alert.alert("Lỗi", errorData.message || "Đăng ký thất bại.");
+      }
+    } catch (error) {
+      console.error("Fetch Error:", error.message);
+      Alert.alert("Lỗi", "Không thể kết nối đến server!");
+    }
+  };
+
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
       {/* Phần chứa lời chào */}
@@ -32,12 +80,18 @@ const SignUp = () => {
         <Text style={styles.greetingSubText}>Bắt đầu nào!</Text>
       </View>
 
+      {/* Form đăng ký */}
       <View style={styles.formContainer}>
         <Text style={styles.formTitle}>Đăng ký</Text>
 
         <View style={styles.inputContainer}>
           <Image source={user} style={styles.icon} resizeMode="contain" />
-          <TextInput placeholder="Nhập tên tài khoản" style={styles.input} />
+          <TextInput
+            placeholder="Nhập tên tài khoản"
+            style={styles.input}
+            value={username}
+            onChangeText={setUsername}
+          />
         </View>
 
         <View style={styles.inputContainer}>
@@ -46,12 +100,19 @@ const SignUp = () => {
             placeholder="Nhập mật khẩu"
             secureTextEntry
             style={styles.input}
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
 
         <View style={styles.inputContainer}>
           <Image source={mail} style={styles.icon} resizeMode="contain" />
-          <TextInput placeholder="Nhập email của bạn" style={styles.input} />
+          <TextInput
+            placeholder="Nhập email của bạn"
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
 
         <View style={styles.inputContainer}>
@@ -59,18 +120,16 @@ const SignUp = () => {
           <TextInput
             placeholder="Nhập tên bạn muốn dùng"
             style={styles.input}
+            value={displayName}
+            onChangeText={setDisplayName}
           />
         </View>
 
-        <TouchableOpacity style={styles.uploadButton}>
-          <Text style={styles.uploadText}>Tải ảnh ngay!</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleRegister}>
           <Text style={styles.submitButtonText}>Tiếp tục</Text>
         </TouchableOpacity>
 
-        {/* Thiết kế hàng chứa các biểu tượng Facebook, X và GitHub */}
+        {/* Biểu tượng mạng xã hội */}
         <View style={styles.socialIconsContainer}>
           <TouchableOpacity>
             <Image
@@ -79,7 +138,6 @@ const SignUp = () => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-
           <TouchableOpacity>
             <Image
               source={xicon}
@@ -87,7 +145,6 @@ const SignUp = () => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-
           <TouchableOpacity>
             <Image
               source={github}
@@ -159,17 +216,11 @@ const styles = StyleSheet.create({
     borderColor: "#CCC",
     paddingVertical: 5,
   },
-  uploadButton: {
-    marginBottom: 20,
-  },
-  uploadText: {
-    color: "#7B61FF",
-    fontWeight: "bold",
-  },
   submitButton: {
     backgroundColor: "#7B61FF",
     padding: 15,
     borderRadius: 10,
+    marginTop: 20,
   },
   submitButtonText: {
     color: "white",

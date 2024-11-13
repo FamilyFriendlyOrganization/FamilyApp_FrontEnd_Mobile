@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 // Import images
 import backgroundImage from "../../assets/Login/background.png";
@@ -16,8 +17,46 @@ import googleLogo from "../../assets/Login/google.png";
 import key from "../../assets/Login/key.png";
 import mail from "../../assets/Login/mail.png";
 import xicon from "../../assets/Login/xicon.png";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
+  // State lưu trữ thông tin username và mật khẩu
+  const [username, setusername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigation = useNavigation();
+
+  // Hàm xử lý đăng nhập
+  const handleLogin = async () => {
+    const payload = {
+      username,
+      password,
+    };
+
+    try {
+      const response = await fetch("http://10.0.2.2:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        Alert.alert("Thành công", "Đăng nhập thành công!");
+        console.log("User data:", data); // Bạn có thể lưu thông tin token tại đây
+        navigation.navigate("Home");
+      } else {
+        const errorData = await response.json();
+        Alert.alert("Lỗi", errorData.message || "Đăng nhập thất bại.");
+      }
+    } catch (error) {
+      console.error("Fetch Error:", error.message);
+      Alert.alert("Lỗi", "Không thể kết nối đến server!");
+    }
+  };
+
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
       <View style={styles.formContainer}>
@@ -30,10 +69,15 @@ const Login = () => {
           resizeMode="contain"
         />
 
-        {/* Email/SĐT input */}
+        {/* username/SĐT input */}
         <View style={styles.inputContainer}>
           <Image source={mail} style={styles.icon} resizeMode="contain" />
-          <TextInput placeholder="Nhập email/SĐT" style={styles.input} />
+          <TextInput
+            placeholder="Nhập username/SĐT"
+            style={styles.input}
+            value={username}
+            onChangeText={setusername}
+          />
         </View>
 
         {/* Mật khẩu input */}
@@ -43,6 +87,8 @@ const Login = () => {
             placeholder="Nhập mật khẩu"
             secureTextEntry
             style={styles.input}
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
 
@@ -55,7 +101,7 @@ const Login = () => {
         </View>
 
         {/* Nút Tiếp tục */}
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleLogin}>
           <Text style={styles.submitButtonText}>Tiếp tục</Text>
         </TouchableOpacity>
 
