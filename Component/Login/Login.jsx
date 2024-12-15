@@ -141,6 +141,10 @@ const Login = () => {
           </TouchableOpacity>
         </View>
       </View>
+
+      <TouchableOpacity onPress={() => navigation.navigate('ChiTieu')}>
+        <Text style={styles.registerText}>Tạo ngay</Text>
+      </TouchableOpacity>
     </ImageBackground>
   );
 };
