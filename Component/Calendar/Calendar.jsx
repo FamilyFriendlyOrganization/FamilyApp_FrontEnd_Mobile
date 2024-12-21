@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
-
+import { View, TouchableOpacity, StyleSheet, Image, Text } from "react-native";
+import {
+  Ionicons,
+  Feather,
+  FontAwesome5,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Calendar } from "react-native-calendars";
 
-const App = () => {
+const AppCalendar = () => {
   const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
   const [selectedDate, setSelectedDate] = useState("");
 
@@ -12,6 +17,21 @@ const App = () => {
   };
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <Ionicons name="chevron-back" size={24} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Chuyển tiền</Text>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity>
+            <Feather name="search" size={20} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginLeft: 16 }}>
+            <Feather name="x" size={20} color="white" />
+          </TouchableOpacity>
+        </View>
+      </View>
       <View style={styles.container}>
         <Calendar
           onDayPress={onDayPress}
@@ -67,6 +87,26 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  header: {
+    paddingTop: 40,
+    backgroundColor: "#7C3AED",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  headerText: {
+    position: "absolute",
+    top: 39,
+    left: 50,
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  iconContainer: {
+    flexDirection: "row",
+  },
   footerContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -96,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default AppCalendar;

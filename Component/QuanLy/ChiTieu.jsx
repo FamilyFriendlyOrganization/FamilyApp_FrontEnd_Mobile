@@ -1,10 +1,19 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import { useState } from "react";
 import { VictoryPie } from "victory-native";
 import Icon from "react-native-vector-icons/MaterialIcons"; // Use MaterialIcons for arrows
-
+import { useNavigation } from "@react-navigation/native";
 const ChiTieu = () => {
+  const navigation = useNavigation(); // Khởi tạo navigation
   const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
 
   const [selectedTab, setSelectedTab] = useState("Chi tiêu"); // "Chi tiêu" or "Thu nhập"
@@ -38,7 +47,9 @@ const ChiTieu = () => {
       ]);
     }
   };
-  const [currentMonthIndex, setCurrentMonthIndex] = useState(new Date().getMonth());
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(
+    new Date().getMonth()
+  );
 
   const handlePreviousMonth = () => {
     setCurrentMonthIndex((prevIndex) =>
@@ -61,10 +72,12 @@ const ChiTieu = () => {
   const renderLegendItem = ({ item }) => {
     const totalValue = data.reduce((sum, item) => sum + item.value, 0); // Calculate total value
     const percentage = ((item.value / totalValue) * 100).toFixed(0); // Calculate percentage
-  
+
     // Find the original index of the category in the `data` array
-    const originalIndex = data.findIndex((dataItem) => dataItem.category === item.category);
-  
+    const originalIndex = data.findIndex(
+      (dataItem) => dataItem.category === item.category
+    );
+
     return (
       <View style={styles.legendItem}>
         <View
@@ -101,7 +114,10 @@ const ChiTieu = () => {
     <View style={{ flex: 1 }}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.iconButton}>
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => navigation.navigate("Home")}
+        >
           <Image
             source={require("../../assets/Family/Header/return.png")}
             style={styles.icon}
@@ -130,23 +146,23 @@ const ChiTieu = () => {
       {/* Balance Section */}
       <View style={styles.balanceContainer}>
         <View style={styles.balanceContent}>
-        <View style={styles.balanceDetails}>
-          <Image
-            source={require("../../assets/ChiTieu/Money.png")} // Replace with your image path
-            style={styles.balanceImage}
-          />
-          <Text style={styles.balanceText}>Số dư thanh toán</Text>
-          <TouchableOpacity
-          onPress={() => setBalanceVisible(!isBalanceVisible)}
-          style={styles.toggleButton}
-          >
+          <View style={styles.balanceDetails}>
+            <Image
+              source={require("../../assets/ChiTieu/Money.png")} // Replace with your image path
+              style={styles.balanceImage}
+            />
+            <Text style={styles.balanceText}>Số dư thanh toán</Text>
+            <TouchableOpacity
+              onPress={() => setBalanceVisible(!isBalanceVisible)}
+              style={styles.toggleButton}
+            >
               <Image
-              source={require("../../assets/ChiTieu/Eye.png")}
-              style={styles.toggleIcon}
+                source={require("../../assets/ChiTieu/Eye.png")}
+                style={styles.toggleIcon}
               />
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.balanceAmount}>{balanceText}</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.balanceAmount}>{balanceText}</Text>
         </View>
         <View>
           <TouchableOpacity>
@@ -166,7 +182,12 @@ const ChiTieu = () => {
 
           {/* Month Selector with Calendar Icon */}
           <View style={styles.monthTextContainer}>
-            <Icon name="calendar-today" size={16} color="#333" style={styles.calendarIcon} />
+            <Icon
+              name="calendar-today"
+              size={16}
+              color="#333"
+              style={styles.calendarIcon}
+            />
             <Text style={styles.monthText}>{months[currentMonthIndex]}</Text>
           </View>
 
@@ -179,16 +200,14 @@ const ChiTieu = () => {
         {/* Tabs for Income and Expense */}
         <View style={styles.tabContainer}>
           <TouchableOpacity
-            style={[
-              styles.tab,
-              selectedTab === "Chi tiêu" && styles.activeTab,
-            ]}
+            style={[styles.tab, selectedTab === "Chi tiêu" && styles.activeTab]}
             onPress={() => handleTabPress("Chi tiêu")}
           >
             <View style={styles.tabTextDetails}>
-              <Image 
-              source={require("../../assets/ChiTieu/Out.png")}
-              style={{marginRight:10}}/>
+              <Image
+                source={require("../../assets/ChiTieu/Out.png")}
+                style={{ marginRight: 10 }}
+              />
               <Text
                 style={[
                   styles.tabText,
@@ -202,15 +221,14 @@ const ChiTieu = () => {
             <Text style={styles.amountText}>{outAmount.toLocaleString()}đ</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[
-              styles.tab,
-              selectedTab === "Thu nhập" && styles.activeTab,
-            ]}
+            style={[styles.tab, selectedTab === "Thu nhập" && styles.activeTab]}
             onPress={() => handleTabPress("Thu nhập")}
           >
             <View style={styles.tabTextDetails}>
-              <Image source={require("../../assets/ChiTieu/In.png")}
-              style={{marginRight:10}}/>
+              <Image
+                source={require("../../assets/ChiTieu/In.png")}
+                style={{ marginRight: 10 }}
+              />
               <Text
                 style={[
                   styles.tabText,
@@ -226,37 +244,36 @@ const ChiTieu = () => {
 
         {/* Difference Calculation */}
         <Text style={styles.differenceText}>
-          Thu - chi ={' '}
+          Thu - chi ={" "}
           <Text style={styles.differenceAmount}>
             {(inAmount - outAmount).toLocaleString()}đ
           </Text>
         </Text>
 
-      {/* Pie Chart */}
-      <View style={styles.chartContainer}>
-        <VictoryPie
-          data={data.map((item) => ({ x: item.category, y: item.value }))}
-          colorScale={colorScale} // Use the color scale
-          innerRadius={60}
-          height={Dimensions.get("window").height * 0.35}
-          labels={() => null} // Remove labels
+        {/* Pie Chart */}
+        <View style={styles.chartContainer}>
+          <VictoryPie
+            data={data.map((item) => ({ x: item.category, y: item.value }))}
+            colorScale={colorScale} // Use the color scale
+            innerRadius={60}
+            height={Dimensions.get("window").height * 0.35}
+            labels={() => null} // Remove labels
+          />
+        </View>
+
+        {/* Legends Section */}
+        <FlatList
+          data={topLegends} // Always show top two legends
+          renderItem={renderLegendItem}
+          keyExtractor={(item, index) => `${item.category}-${index}`}
+          style={styles.legendList}
         />
+
+        {/* "Xem thêm" Button (Static) */}
+        <TouchableOpacity style={styles.showMoreButton}>
+          <Text style={styles.showMoreText}>Xem thêm</Text>
+        </TouchableOpacity>
       </View>
-
-      {/* Legends Section */}
-      <FlatList
-        data={topLegends} // Always show top two legends
-        renderItem={renderLegendItem}
-        keyExtractor={(item, index) => `${item.category}-${index}`}
-        style={styles.legendList}
-      />
-
-      {/* "Xem thêm" Button (Static) */}
-      <TouchableOpacity style={styles.showMoreButton}>
-        <Text style={styles.showMoreText}>Xem thêm</Text>
-      </TouchableOpacity>
-      </View>
-
 
       {/* Phần Footer */}
       <View style={styles.footerContainer}>
@@ -425,7 +442,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 
-
   mainContainer: {
     flex: 1,
     backgroundColor: "#f8f8f8",
@@ -526,7 +542,6 @@ const styles = StyleSheet.create({
     color: "#333",
     fontWeight: "bold",
   },
-
 
   // Tab and Chart
   tab: {

@@ -66,7 +66,12 @@ const Welcome = () => {
           </TouchableOpacity>
           <Text style={styles.signupText}>
             Chưa có tài khoản?{" "}
-            <Text style={styles.signupLink}>Đăng ký ngay</Text>
+            <Text
+              style={styles.signupLink}
+              onPress={() => navigation.navigate("SignUp")}
+            >
+              Đăng ký ngay
+            </Text>
           </Text>
         </View>
       </View>

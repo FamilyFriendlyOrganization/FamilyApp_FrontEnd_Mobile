@@ -13,6 +13,9 @@ import TransactionResultPage from "./Component/TransferMoneyPage/TransactionResu
 import GiftPage from "./Component/GiftPage/GiftPage";
 import GiftPage1 from "./Component/GiftPage/GiftPage1";
 import SelectFamily from "./Component/Family/SelectFamily";
+import AppCalendar from "./Component/Calendar/Calendar";
+import Family from "./Component/Family/Family";
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -27,7 +30,7 @@ export default function App() {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="GiftPage1" component={GiftPage1} />
         <Stack.Screen name="GiftPage" component={GiftPage} />
-        <Stack.Screen name="SelectFamily" component={SelectFamily} />
+        <Stack.Screen name="AppCalendar" component={AppCalendar} />
         <Stack.Screen
           name="TransactionResultPage"
           component={TransactionResultPage}
@@ -36,6 +39,7 @@ export default function App() {
           name="TransferMoneyPage1"
           component={TransferMoneyPage1}
         />
+        <Stack.Screen name="SelectFamily" component={SelectFamily} />
         <Stack.Screen name="TransferMoneyPage" component={TransferMoneyPage} />
         <Stack.Screen name="ReceiveMoney" component={ReceiveMoney} />
         <Stack.Screen name="Profile" component={Profile} />
@@ -43,6 +47,7 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ChiTieu" component={ChiTieu} />
+        <Stack.Screen name="Family" component={Family} />
       </Stack.Navigator>
     </NavigationContainer>
   );

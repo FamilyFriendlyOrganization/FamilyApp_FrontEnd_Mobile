@@ -33,8 +33,21 @@ import scanIcon from "../../assets/Home/Footer/scan.png";
 import mailIcon from "../../assets/Home/Footer/Mail.png";
 import profileIcon from "../../assets/Home/Footer/profile.png";
 
+import { useNavigation } from "@react-navigation/native";
+
 const Home = () => {
   const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
+  const navigation = useNavigation();
+
+  const handleQuanLyChiTieu = async () => {
+    navigation.navigate("ChiTieu");
+  };
+  const handleDatLich = async () => {
+    navigation.navigate("AppCalendar");
+  };
+  const handleThemGiaDinh = async () => {
+    navigation.navigate("Family");
+  };
   return (
     <View style={styles.container}>
       {/* Phần Header */}
@@ -75,12 +88,12 @@ const Home = () => {
       {/* Phần Main */}
       <View style={styles.mainContainer}>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={handleQuanLyChiTieu}>
             <Image source={quanLyChiTieuIcon} style={styles.mainIcon} />
             <Text style={styles.label}>Quản lý chi tiêu</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={handleDatLich}>
             <Image source={datLichIcon} style={styles.mainIcon} />
             <Text style={styles.label}>Đặt lịch</Text>
           </TouchableOpacity>
@@ -97,9 +110,9 @@ const Home = () => {
         </View>
 
         <View style={styles.row}>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={handleThemGiaDinh}>
             <Image source={thanhToanHoaDonIcon} style={styles.mainIcon} />
-            <Text style={styles.label}>Thanh toán hóa đơn</Text>
+            <Text style={styles.label}>Thêm gia đình</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.item}>

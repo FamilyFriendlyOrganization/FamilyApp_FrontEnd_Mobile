@@ -8,9 +8,15 @@ import {
   TextInput,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/native";
 
 const SelectFamily = () => {
   const [selectedFamily, setSelectedFamily] = React.useState("");
+  const navigation = useNavigation();
+
+  const handleTiepTuc = async () => {
+    navigation.navigate("Home");
+  };
 
   return (
     <View style={styles.container}>
@@ -43,7 +49,9 @@ const SelectFamily = () => {
 
         {/* Continue Button */}
         <TouchableOpacity style={styles.continueButton}>
-          <Text style={styles.continueButtonText}>Tiếp tục</Text>
+          <Text style={styles.continueButtonText} onPress={handleTiepTuc}>
+            Tiếp tục
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
