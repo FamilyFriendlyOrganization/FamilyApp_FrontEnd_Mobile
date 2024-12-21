@@ -18,6 +18,7 @@ import key from "../../assets/Login/key.png";
 import mail from "../../assets/Login/mail.png";
 import xicon from "../../assets/Login/xicon.png";
 import { useNavigation } from "@react-navigation/native";
+import useAuth from "../../useAuth";
 
 const Login = () => {
   // State lưu trữ thông tin username và mật khẩu
@@ -44,9 +45,15 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
+
+        // Lưu thông tin người dùng vào AsyncStorage và bộ nhớ tạm
+        await useAuth.saveUserData(data);
+
+        // Thông báo đăng nhập thành công
         Alert.alert("Thành công", "Đăng nhập thành công!");
-        console.log("User data:", data); // Bạn có thể lưu thông tin token tại đây
-        navigation.navigate("Home");
+
+        // Chuyển hướng đến trang Home
+        navigation.navigate("SelectFamily");
       } else {
         const errorData = await response.json();
         Alert.alert("Lỗi", errorData.message || "Đăng nhập thất bại.");
@@ -142,7 +149,7 @@ const Login = () => {
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => navigation.navigate('ChiTieu')}>
+      <TouchableOpacity onPress={() => navigation.navigate("ChiTieu")}>
         <Text style={styles.registerText}>Tạo ngay</Text>
       </TouchableOpacity>
     </ImageBackground>
