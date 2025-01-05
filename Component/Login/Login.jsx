@@ -11,20 +11,18 @@ import {
 } from "react-native";
 // Import images
 import backgroundImage from "../../assets/Login/background.png";
-import facebook from "../../assets/Login/facebook.png";
-import github from "../../assets/Login/github.png";
 import googleLogo from "../../assets/Login/google.png";
 import key from "../../assets/Login/key.png";
 import mail from "../../assets/Login/mail.png";
-import xicon from "../../assets/Login/xicon.png";
 import { useNavigation } from "@react-navigation/native";
 import useAuth from "../../useAuth";
-
+import { AntDesign } from "@expo/vector-icons";
+import { CheckBox } from "react-native-elements";
 const Login = () => {
   // State lưu trữ thông tin username và mật khẩu
   const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [rememberMe, setRememberMe] = useState(false);
   const navigation = useNavigation();
 
   // Hàm xử lý đăng nhập
@@ -68,15 +66,13 @@ const Login = () => {
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
       <View style={styles.formContainer}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <AntDesign name="arrowleft" size={24} color="black" />
+        </TouchableOpacity>
         <Text style={styles.formTitle}>Đăng nhập</Text>
-
-        {/* Google logo */}
-        <Image
-          source={googleLogo}
-          style={styles.googleLogo}
-          resizeMode="contain"
-        />
-
         {/* username/SĐT input */}
         <View style={styles.inputContainer}>
           <Image source={mail} style={styles.icon} resizeMode="contain" />
@@ -102,8 +98,24 @@ const Login = () => {
 
         {/* Ghi nhớ tôi và Quên mật khẩu */}
         <View style={styles.rememberContainer}>
+          {/* Checkbox */}
+          <TouchableOpacity
+            style={[
+              styles.checkbox,
+              { backgroundColor: rememberMe ? "#7B61FF" : "white" }, // Đổi màu khi chọn
+            ]}
+            onPress={() => setRememberMe(!rememberMe)} // Toggle trạng thái
+          >
+            {rememberMe && (
+              <AntDesign name="check" size={16} color="white" /> // Dấu tích
+            )}
+          </TouchableOpacity>
+
+          {/* Văn bản "Ghi nhớ tôi" ngay cạnh checkbox */}
           <Text style={styles.rememberText}>Ghi nhớ tôi</Text>
-          <TouchableOpacity>
+
+          {/* Quên mật khẩu ở bên phải */}
+          <TouchableOpacity style={styles.forgotPasswordContainer}>
             <Text style={styles.forgotPasswordText}>Quên mật khẩu?</Text>
           </TouchableOpacity>
         </View>
@@ -115,44 +127,12 @@ const Login = () => {
 
         {/* Tạo tài khoản */}
         <View style={styles.registerContainer}>
-          <Text>Chưa có tài khoản? </Text>
+          <Text style={styles.register}>Chưa có tài khoản? </Text>
           <TouchableOpacity>
-            <Text style={styles.registerText}>Tạo ngay</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Đăng nhập bằng mạng xã hội */}
-        <Text style={styles.socialLoginText}>Đăng nhập bằng:</Text>
-        <View style={styles.socialIconsContainer}>
-          <TouchableOpacity>
-            <Image
-              source={facebook}
-              style={styles.socialIcon}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <Image
-              source={xicon}
-              style={styles.socialIcon}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <Image
-              source={github}
-              style={styles.socialIcon}
-              resizeMode="contain"
-            />
+            <Text style={styles.registerText}>Đăng ký ngay</Text>
           </TouchableOpacity>
         </View>
       </View>
-
-      <TouchableOpacity onPress={() => navigation.navigate("ChiTieu")}>
-        <Text style={styles.registerText}>Tạo ngay</Text>
-      </TouchableOpacity>
     </ImageBackground>
   );
 };
@@ -200,14 +180,30 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   rememberContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: "row", // Hiển thị theo hàng ngang
+    alignItems: "center", // Căn giữa theo chiều dọc
+    justifyContent: "space-between", // Cách đều giữa các phần tử
     width: "100%",
     marginBottom: 20,
   },
+  checkbox: {
+    position: "absolute",
+    left: 15,
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderColor: "#888",
+    borderRadius: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 5, // Khoảng cách nhỏ giữa checkbox và chữ
+  },
   rememberText: {
+    position: "relative",
+    left: 45,
     fontSize: 14,
+    color: "#333",
+    marginRight: 20, // Giữ khoảng cách với nút "Quên mật khẩu"
   },
   forgotPasswordText: {
     fontSize: 14,
@@ -230,9 +226,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 20,
   },
+  register: {
+    fontSize: 20,
+  },
   registerText: {
     color: "#7B61FF",
     fontWeight: "bold",
+    fontSize: 20,
   },
   socialLoginText: {
     fontSize: 16,
@@ -246,6 +246,16 @@ const styles = StyleSheet.create({
   socialIcon: {
     width: 50,
     height: 50,
+  },
+  backButton: {
+    position: "absolute",
+    top: 26,
+    left: 100,
+    zIndex: 10, // Đảm bảo nút hiển thị phía trước
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
