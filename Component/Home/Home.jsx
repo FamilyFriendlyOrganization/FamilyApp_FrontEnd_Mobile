@@ -26,15 +26,13 @@ import giaDinhIcon from "../../assets/Home/Main/GiaDinh.png";
 import moreIcon from "../../assets/Home/Main/More.png";
 import searchIcon from "../../assets/Home/Main/search.png"; // Biểu tượng tìm kiếm
 
-// Import các icon từ thư mục Footer
-import familyIcon from "../../assets/Home/Footer/family.png";
-import settingsIcon from "../../assets/Home/Footer/Settings.png";
-import scanIcon from "../../assets/Home/Footer/scan.png";
-import mailIcon from "../../assets/Home/Footer/Mail.png";
-import profileIcon from "../../assets/Home/Footer/profile.png";
-
 import { useNavigation } from "@react-navigation/native";
+import { ScrollView } from "react-native";
 
+import tt1 from "./assets/tt1.png";
+import tt2 from "./assets/tt2.png";
+import tt3 from "./assets/tt3.png";
+import tt4 from "./assets/tt4.png";
 const Home = () => {
   const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
   const navigation = useNavigation();
@@ -48,6 +46,35 @@ const Home = () => {
   const handleThemGiaDinh = async () => {
     navigation.navigate("Family");
   };
+  const newsData = [
+    {
+      id: 1,
+      title: "Hạnh phúc đơn giản là sự tôn trọng",
+      description:
+        "Khi có sự tôn trọng lẫn nhau, quan hệ vợ chồng sẽ được củng cố, tình cảm thêm bền chặt",
+      image: tt1,
+    },
+    {
+      id: 2,
+      title: "Dạy con tiêu tiền hợp lý",
+      description:
+        "Việc cho con tiếp cận với những kiến thức tài chính từ sớm là việc cần thiết để con hình thành tư duy tiết kiệm...",
+      image: tt2,
+    },
+    {
+      id: 3,
+      title: "Thu hẹp khoảng cách thế hệ",
+      description:
+        "Bằng cách chấp nhận sự khác biệt, quan tâm đến sở thích của con...",
+      image: tt3,
+    },
+    {
+      id: 4,
+      title: "Hãy lắng nghe tiếng lòng con trẻ!",
+      description: "Dù bận rộn đến đâu hãy luôn dành thời gian cho con trẻ...",
+      image: tt4,
+    },
+  ];
   return (
     <View style={styles.container}>
       {/* Phần Header */}
@@ -66,27 +93,21 @@ const Home = () => {
               <Image source={notificationIcon} style={styles.icon} />
               <Text style={styles.notificationBadge}>2</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={messageIcon} style={styles.icon} />
-            </TouchableOpacity>
           </View>
 
-          <Image source={vietnamFlag} style={styles.flagIcon} />
+          {/* Thêm nút Đăng xuất */}
+          <TouchableOpacity onPress={() => alert("Bạn đã đăng xuất!")}>
+            <Text style={styles.logoutText}>Đăng xuất</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
-      {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Tìm kiếm..."
-          placeholderTextColor="#ccc"
-        />
-        <Image source={searchIcon} style={styles.searchIcon} />
-      </View>
-
       {/* Phần Main */}
-      <View style={styles.mainContainer}>
+      <ScrollView
+        style={styles.mainContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.functionText}>Các chức năng tiêu biểu</Text>
         <View style={styles.row}>
           <TouchableOpacity style={styles.item} onPress={handleQuanLyChiTieu}>
             <Image source={quanLyChiTieuIcon} style={styles.mainIcon} />
@@ -130,14 +151,45 @@ const Home = () => {
             <Text style={styles.label}>Các chức năng khác</Text>
           </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styles.mainContainer}>
-        <Text style={styles.promotionText}>Thông tin khuyến mãi</Text>
-        <Text style={styles.promotionText}></Text>
-        <Text style={styles.promotionText}></Text>
-        <Text style={styles.promotionText}>Tin Tức</Text>
-      </View>
+        <View style={styles.mainContainer}>
+          <View style={styles.promotionContainer}>
+            <Text style={styles.promotionTitle}>Thông tin khuyến mãi</Text>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <Image
+                source={require("./assets/qc1.png")}
+                style={styles.promotionImage}
+              />
+              <Image
+                source={require("./assets/qc2.png")}
+                style={styles.promotionImage}
+              />
+              <Image
+                source={require("./assets/qc1.png")}
+                style={styles.promotionImage}
+              />
+              <Image
+                source={require("./assets/qc2.png")}
+                style={styles.promotionImage}
+              />
+            </ScrollView>
+          </View>
+          <View style={styles.newsContainer}>
+            <Text style={styles.promotionTitle}>Tin tức</Text>
+            {newsData.map((item) => (
+              <View key={item.id} style={styles.newsItem}>
+                <Image source={item.image} style={styles.newsImage} />
+                <View style={styles.newsTextContainer}>
+                  <Text style={styles.newsTitleText}>{item.title}</Text>
+                  <Text style={styles.newsDescription}>{item.description}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
       {/* Phần Footer */}
       <View style={styles.footerContainer}>
         <TouchableOpacity onPress={() => setActiveTab("home")}>
@@ -185,7 +237,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   header: {
-    height: 80,
+    height: 120,
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
@@ -231,7 +283,8 @@ const styles = StyleSheet.create({
     right: 10,
   },
   notificationContainer: {
-    position: "relative",
+    position: "absolute",
+    right: -150,
     marginHorizontal: 10,
   },
   notificationBadge: {
@@ -281,17 +334,22 @@ const styles = StyleSheet.create({
   item: {
     justifyContent: "center",
     alignItems: "center",
-    width: 70,
+    width: 80, // Tăng kích thước để ảnh và chữ không bị mất
+    height: 100, // Tăng chiều cao để chứa cả ảnh và chữ
+    borderRadius: 10, // Bo góc
+    overflow: "hidden", // Giữ nội dung bên trong
   },
   mainIcon: {
-    width: 50,
+    width: 50, // Kích thước ảnh lớn hơn để khít container
     height: 50,
-    marginBottom: 5,
+    resizeMode: "contain", // Đảm bảo ảnh không bị cắt
+    marginBottom: 5, // Khoảng cách giữa ảnh và chữ
   },
   label: {
-    fontSize: 14,
+    fontSize: 14, // Giữ kích thước chữ rõ ràng
     textAlign: "center",
     color: "#000",
+    marginTop: 5, // Tạo khoảng cách với ảnh
   },
   footerContainer: {
     flexDirection: "row",
@@ -327,6 +385,77 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#6A0DAD",
     marginBottom: 4,
+  },
+  promotionContainer: {
+    marginTop: 20,
+    paddingHorizontal: 0, // Loại bỏ padding ngang
+    width: "100%", // Chiếm toàn bộ chiều rộng màn hình
+  },
+  promotionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  promotionImage: {
+    width: 300, // Kích thước ảnh từng khuyến mãi
+    height: 120,
+    borderRadius: 10,
+    marginRight: 10,
+    resizeMode: "cover", // Đảm bảo ảnh hiển thị đầy đủ
+  },
+  newsContainer: {
+    marginTop: 20,
+    paddingHorizontal: 0, // Loại bỏ padding ngang
+    width: "100%", // Chiếm toàn bộ chiều rộng màn hình
+  },
+  newsTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  newsItem: {
+    flexDirection: "row",
+    marginBottom: 15,
+    backgroundColor: "#F9F9F9",
+    borderRadius: 10,
+    overflow: "hidden",
+    elevation: 2, // Hiệu ứng đổ bóng cho Android
+    shadowColor: "#000", // Hiệu ứng đổ bóng cho iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  newsImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    resizeMode: "cover",
+  },
+  newsTextContainer: {
+    flex: 1,
+    padding: 10,
+  },
+  newsTitleText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  newsDescription: {
+    fontSize: 14,
+    color: "#666",
+  },
+  functionText: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 30,
+  },
+  logoutText: {
+    color: "#FFFFFF", // Màu trắng cho chữ
+    fontSize: 24, // Cỡ chữ
+    fontWeight: "bold", // Chữ đậm
+    position: "absolute", // Đặt vị trí tuyệt đối
+    top: -55, // Khoảng cách từ trên xuống
+    right: 0, // Căn lề phải
   },
 });
 
