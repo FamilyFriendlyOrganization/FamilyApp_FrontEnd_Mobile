@@ -46,6 +46,9 @@ const SelectFamily = () => {
             <Picker.Item label="Gia đình 2" value="family2" />
           </Picker>
         </View>
+        <Text style={styles.infoText}>
+          Nếu bạn chưa có gia đình, hãy tạo hoặc tham gia ngay nhé!
+        </Text>
 
         {/* Continue Button */}
         <TouchableOpacity style={styles.continueButton}>
@@ -71,27 +74,29 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   overlayBox: {
-    width: 300,
+    width: 333,
+    height: 420,
     padding: 20,
     backgroundColor: "rgba(255, 255, 255, 0.9)",
     borderRadius: 20,
     alignItems: "center",
   },
   greeting: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 24,
+    fontWeight: "semibold",
     marginBottom: 10,
     color: "black",
   },
   question: {
-    fontSize: 16,
-    color: "black",
+    fontSize: 30,
+    fontStyle: "normal",
+    color: "gray",
     marginBottom: 10,
   },
   infoText: {
-    fontSize: 14,
-    color: "gray",
-    textAlign: "center",
+    fontSize: 20,
+    color: "black",
+    textAlign: "left",
     marginBottom: 20,
   },
   pickerContainer: {
@@ -99,7 +104,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 10,
     width: "100%",
-    marginBottom: 20,
+    marginBottom: 25,
   },
   picker: {
     height: 40,
