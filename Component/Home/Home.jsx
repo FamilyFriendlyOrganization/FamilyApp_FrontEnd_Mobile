@@ -46,6 +46,18 @@ const Home = () => {
   const handleThemGiaDinh = async () => {
     navigation.navigate("Family");
   };
+  const handleNhanTien = async () => {
+    navigation.navigate("ReceiveMoney");
+  };
+  const handleChuyenTien = async () => {
+    navigation.navigate("TransferMoneyPage");
+  };
+  const handleTangQua = async () => {
+    navigation.navigate("GiftPage");
+  };
+  const handleGiaDinh = async () => {
+    navigation.navigate("Family");
+  };
   const newsData = [
     {
       id: 1,
@@ -96,7 +108,7 @@ const Home = () => {
           </View>
 
           {/* Thêm nút Đăng xuất */}
-          <TouchableOpacity onPress={() => alert("Bạn đã đăng xuất!")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text style={styles.logoutText}>Đăng xuất</Text>
           </TouchableOpacity>
         </View>
@@ -119,12 +131,12 @@ const Home = () => {
             <Text style={styles.label}>Đặt lịch</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={handleNhanTien}>
             <Image source={nhanTienIcon} style={styles.mainIcon} />
             <Text style={styles.label}>Nhận tiền</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={handleChuyenTien}>
             <Image source={chuyenTienIcon} style={styles.mainIcon} />
             <Text style={styles.label}>Chuyển tiền</Text>
           </TouchableOpacity>
@@ -136,12 +148,12 @@ const Home = () => {
             <Text style={styles.label}>Thêm gia đình</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={handleTangQua}>
             <Image source={tangQuaIcon} style={styles.mainIcon} />
             <Text style={styles.label}>Tặng quà</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={handleThemGiaDinh}>
             <Image source={giaDinhIcon} style={styles.mainIcon} />
             <Text style={styles.label}>Gia đình</Text>
           </TouchableOpacity>
