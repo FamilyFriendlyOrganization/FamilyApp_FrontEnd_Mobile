@@ -41,28 +41,9 @@ const Welcome = () => {
             Xin chào, chào mừng trở lại
           </Text>
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Image
-              source={googleIcon}
-              style={styles.icon}
-              resizeMode="contain"
-            />
-            <Text style={styles.loginText}>Đăng nhập bằng Google</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton}>
-            <Image
-              source={phoneIcon}
-              style={styles.icon}
-              resizeMode="contain"
-            />
-            <Text style={styles.loginText}>Đăng nhập bằng SĐT</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton}>
-            <Image
-              source={facebookIcon}
-              style={styles.icon}
-              resizeMode="contain"
-            />
-            <Text style={styles.loginText}>Đăng nhập bằng Facebook</Text>
+            <Text style={styles.loginText}>
+              Đã có tài khoản, đăng nhập ngay
+            </Text>
           </TouchableOpacity>
           <Text style={styles.signupText}>
             Chưa có tài khoản?{" "}
@@ -81,20 +62,21 @@ const Welcome = () => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    resizeMode: "cover", // Ensures the background covers the entire screen
+    marginTop: -10,
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: -30,
   },
   content: {
     alignItems: "center",
     padding: 20,
   },
   familyIcon: {
-    width: 100,
-    height: 100,
+    width: 217,
+    height: 195,
     marginBottom: 20,
   },
   title: {
@@ -113,7 +95,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   handIcon: {
-    width: 24,
+    width: 48,
+    height: 48,
     marginRight: 10,
   },
   loginButton: {
@@ -143,7 +126,7 @@ const styles = StyleSheet.create({
     fontStyle: "italic", // Italic text inside the buttons
   },
   signupText: {
-    fontSize: 16, // Increased font size for better visibility
+    fontSize: 20, // Increased font size for better visibility
     color: "#FFFFFF",
     fontStyle: "italic", // Italicized text for "Chưa có tài khoản?"
     fontWeight: "bold", // Bold text for both "Chưa có tài khoản?" and "Đăng ký ngay"
@@ -152,7 +135,7 @@ const styles = StyleSheet.create({
     color: "#00FF00", // Brighter green color
     fontWeight: "bold",
     fontStyle: "italic", // Italicized text for the signup link "Đăng ký ngay"
-    fontSize: 16, // Ensure the same size as "signupText"
+    fontSize: 20, // Ensure the same size as "signupText"
   },
 });
 export default Welcome;

@@ -12,6 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import "react-native-get-random-values"; // Import thư viện này trước
 import { v4 as uuidv4 } from "uuid";
+import { AntDesign } from "@expo/vector-icons";
 
 // Import hình ảnh
 import backgroundImage from "../../assets/Login/background.png";
@@ -81,7 +82,15 @@ const SignUp = () => {
       </View>
 
       {/* Form đăng ký */}
+
       <View style={styles.formContainer}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <AntDesign name="arrowleft" size={20} color="#007BFF" />
+          <Text style={styles.backText}>Đã có tài khoản, đăng nhập ngay</Text>
+        </TouchableOpacity>
         <Text style={styles.formTitle}>Đăng ký</Text>
 
         <View style={styles.inputContainer}>
@@ -128,31 +137,6 @@ const SignUp = () => {
         <TouchableOpacity style={styles.submitButton} onPress={handleRegister}>
           <Text style={styles.submitButtonText}>Tiếp tục</Text>
         </TouchableOpacity>
-
-        {/* Biểu tượng mạng xã hội */}
-        <View style={styles.socialIconsContainer}>
-          <TouchableOpacity>
-            <Image
-              source={facebook}
-              style={styles.socialIcon}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              source={xicon}
-              style={styles.socialIcon}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              source={github}
-              style={styles.socialIcon}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
       </View>
     </ImageBackground>
   );
@@ -194,8 +178,19 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: "center",
   },
+  backButton: {
+    position: "relative",
+    flexDirection: "row", // Hiển thị icon và text theo hàng ngang
+    alignItems: "center",
+  },
+  backText: {
+    color: "#007BFF", // Màu xanh giống trong hình
+    fontSize: 16,
+    fontWeight: "bold",
+    marginLeft: 5, // Khoảng cách giữa icon và text
+  },
   formTitle: {
-    fontSize: 24,
+    fontSize: 50,
     fontWeight: "bold",
     color: "#7B61FF",
     marginBottom: 20,

@@ -29,39 +29,40 @@ const Login = () => {
 
   // Hàm xử lý đăng nhập
   const handleLogin = async () => {
-    const payload = {
-      username,
-      password,
-    };
+    // const payload = {
+    //   username,
+    //   password,
+    // };
 
-    try {
-      const response = await fetch("http://10.0.2.2:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+    // try {
+    //   const response = await fetch("http://10.0.2.2:8080/api/auth/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(payload),
+    //   });
 
-      if (response.ok) {
-        const data = await response.json();
+    //   if (response.ok) {
+    //     const data = await response.json();
 
-        // Lưu thông tin người dùng vào AsyncStorage và bộ nhớ tạm
-        await useAuth.saveUserData(data);
+    //     // Lưu thông tin người dùng vào AsyncStorage và bộ nhớ tạm
+    //     await useAuth.saveUserData(data);
 
-        // Thông báo đăng nhập thành công
-        Alert.alert("Thành công", "Đăng nhập thành công!");
+    //     // Thông báo đăng nhập thành công
+    //     Alert.alert("Thành công", "Đăng nhập thành công!");
 
-        // Chuyển hướng đến trang Home
-        navigation.navigate("SelectFamily");
-      } else {
-        const errorData = await response.json();
-        Alert.alert("Lỗi", errorData.message || "Đăng nhập thất bại.");
-      }
-    } catch (error) {
-      console.error("Fetch Error:", error.message);
-      Alert.alert("Lỗi", "Không thể kết nối đến server!");
-    }
+    //     // Chuyển hướng đến trang Home
+    //     navigation.navigate("SelectFamily");
+    //   } else {
+    //     const errorData = await response.json();
+    //     Alert.alert("Lỗi", errorData.message || "Đăng nhập thất bại.");
+    //   }
+    // } catch (error) {
+    //   console.error("Fetch Error:", error.message);
+    //   Alert.alert("Lỗi", "Không thể kết nối đến server!");
+    // }
+    navigation.navigate("SelectFamily");
   };
 
   return (
