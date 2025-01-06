@@ -15,6 +15,7 @@ import GiftPage1 from "./Component/GiftPage/GiftPage1";
 import SelectFamily from "./Component/Family/SelectFamily";
 import AppCalendar from "./Component/Calendar/Calendar";
 import Family from "./Component/Family/Family";
+import More from "./Component/More/More";
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,7 @@ export default function App() {
           name="TransferMoneyPage1"
           component={TransferMoneyPage1}
         />
+        <Stack.Screen name="More" component={More} />
         <Stack.Screen name="SelectFamily" component={SelectFamily} />
         <Stack.Screen name="TransferMoneyPage" component={TransferMoneyPage} />
         <Stack.Screen name="ReceiveMoney" component={ReceiveMoney} />

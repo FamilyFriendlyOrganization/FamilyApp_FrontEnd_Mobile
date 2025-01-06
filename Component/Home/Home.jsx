@@ -58,6 +58,9 @@ const Home = () => {
   const handleGiaDinh = async () => {
     navigation.navigate("Family");
   };
+  const handleCacChucNangKhac = async () => {
+    navigation.navigate("More");
+  };
   const newsData = [
     {
       id: 1,
@@ -158,7 +161,7 @@ const Home = () => {
             <Text style={styles.label}>Gia đình</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={handleCacChucNangKhac}>
             <Image source={moreIcon} style={styles.mainIcon} />
             <Text style={styles.label}>Các chức năng khác</Text>
           </TouchableOpacity>
