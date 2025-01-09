@@ -34,6 +34,8 @@ const Profile = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
+        {/* Thêm tên người dùng */}
+        <Text style={styles.userName}>Vũ Trí</Text>
         {/* Các nút thay đổi hồ sơ cá nhân và đăng xuất */}
         <View style={styles.buttonContainer}>
           {/* Nút Hồ sơ cá nhân */}
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 5,
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 30,
   },
   profileButton: {
     backgroundColor: "#6A0DAD", // Màu tím cho nút Hồ sơ cá nhân
@@ -230,8 +232,15 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFF", // Màu chữ trắng
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: "bold",
+  },
+  userName: {
+    fontSize: 40, // Cỡ chữ
+    fontWeight: "bold", // Chữ đậm
+    color: "black", // Màu chữ
+    marginTop: 0, // Khoảng cách phía trên
+    marginBottom: 30,
   },
 });
 

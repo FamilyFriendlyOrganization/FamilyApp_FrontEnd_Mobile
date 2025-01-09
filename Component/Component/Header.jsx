@@ -32,7 +32,7 @@ const Header = ({ title }) => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#6A0DAD", // Màu nền tím
+    backgroundColor: "#6720AF", // Màu nền tím
     height: 90, // Tăng chiều cao header
     flexDirection: "row", // Hiển thị các thành phần theo hàng ngang
     alignItems: "flex-end", // Căn phần nội dung Header xuống
