@@ -7,9 +7,10 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { Calendar } from "react-native-calendars";
+import Footer from "../Component/Footer";
 
 const AppCalendar = () => {
-  const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
+  const [activeTab, setActiveTab] = useState("calendar"); // Tab hiện đang được chọn
   const [selectedDate, setSelectedDate] = useState("");
 
   const onDayPress = (day) => {
@@ -46,42 +47,7 @@ const AppCalendar = () => {
         />
       </View>
       {/* Phần Footer */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={() => setActiveTab("home")}>
-          <Image
-            source={require("../../assets/Profile/Footer/home.png")}
-            style={[styles.icon, activeTab === "home" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("calendar")}>
-          <Image
-            source={require("../../assets/Profile/Footer/calendar.png")}
-            style={[styles.icon, activeTab === "calendar" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("more")}>
-          <Image
-            source={require("../../assets/Profile/Footer/more.png")}
-            style={[styles.icon, activeTab === "more" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("money")}>
-          <Image
-            source={require("../../assets/Profile/Footer/money.png")}
-            style={[styles.icon, activeTab === "money" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("profile")}>
-          <Image
-            source={require("../../assets/Profile/Footer/profile.png")}
-            style={[styles.icon, activeTab === "profile" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-      </View>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };

@@ -7,23 +7,17 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
 
 const Profile = ({ navigation }) => {
-  const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
+  const [activeTab, setActiveTab] = useState("profile"); // Tab hiện đang được chọn
   const [showPassword, setShowPassword] = useState(false); // Kiểm soát hiển thị mật khẩu
 
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
       {/* Phần Header */}
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image
-            source={require("../../assets/Profile/Header/returnbutton.png")}
-            style={styles.returnButton}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Chỉnh sửa hồ sơ</Text>
-      </View>
+      <Header title="Chỉnh sửa hồ sơ" />
 
       {/* Phần Main */}
       <View style={styles.mainContainer}>
@@ -82,42 +76,7 @@ const Profile = ({ navigation }) => {
       </View>
 
       {/* Phần Footer */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={() => setActiveTab("home")}>
-          <Image
-            source={require("../../assets/Profile/Footer/home.png")}
-            style={[styles.icon, activeTab === "home" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("calendar")}>
-          <Image
-            source={require("../../assets/Profile/Footer/calendar.png")}
-            style={[styles.icon, activeTab === "calendar" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("more")}>
-          <Image
-            source={require("../../assets/Profile/Footer/more.png")}
-            style={[styles.icon, activeTab === "more" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("money")}>
-          <Image
-            source={require("../../assets/Profile/Footer/money.png")}
-            style={[styles.icon, activeTab === "money" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("profile")}>
-          <Image
-            source={require("../../assets/Profile/Footer/profile.png")}
-            style={[styles.icon, activeTab === "profile" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-      </View>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
@@ -146,11 +105,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
     backgroundColor: "#fff",
-    top: 90,
   },
   avatarContainer: {
     position: "relative",
-    marginBottom: 20,
+    marginTop: 30,
+    marginBottom: 30,
   },
   avatar: {
     width: 200,

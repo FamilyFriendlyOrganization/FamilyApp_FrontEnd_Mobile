@@ -17,7 +17,7 @@ import Footer from "../Component/Footer";
 
 const ChiTieu = () => {
   const navigation = useNavigation(); // Khởi tạo navigation
-  const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
+  const [activeTab, setActiveTab] = useState("money"); // Tab hiện đang được chọn
 
   const [selectedTab, setSelectedTab] = useState("Chi tiêu"); // "Chi tiêu" or "Thu nhập"
   const [month, setMonth] = useState("Tháng này"); // Default month
