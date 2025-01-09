@@ -3,23 +3,10 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const Header = ({ title }) => {
-  const navigation = useNavigation(); // Để xử lý điều hướng
-
   return (
     <View style={styles.header}>
       {/* Phần Trở về và Tiêu đề */}
       <View style={styles.leftContainer}>
-        {/* Icon Trở về */}
-        <TouchableOpacity
-          style={styles.iconButton}
-          onPress={() => navigation.goBack()} // Quay lại màn hình trước đó
-        >
-          <Image
-            source={require("../../assets/Family/Header/return.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-
         {/* Tiêu đề */}
         <Text style={styles.headerText}>{title}</Text>
       </View>
@@ -46,7 +33,7 @@ const Header = ({ title }) => {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#6A0DAD", // Màu nền tím
-    height: 75, // Tăng chiều cao header
+    height: 90, // Tăng chiều cao header
     flexDirection: "row", // Hiển thị các thành phần theo hàng ngang
     alignItems: "flex-end", // Căn phần nội dung Header xuống
     justifyContent: "space-between", // Giãn cách giữa các phần tử
@@ -58,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center", // Căn giữa các thành phần
   },
   headerText: {
-    fontSize: 18, // Cỡ chữ
+    fontSize: 24, // Cỡ chữ
     fontWeight: "bold", // Chữ đậm
     color: "#fff", // Màu trắng
     marginLeft: 10, // Khoảng cách giữa Icon và Tiêu đề

@@ -16,6 +16,9 @@ import SelectFamily from "./Component/Family/SelectFamily";
 import AppCalendar from "./Component/Calendar/Calendar";
 import Family from "./Component/Family/Family";
 import More from "./Component/More/More";
+import MainProfile from "./Component/Profile/MainProfile";
+import CreateFamily from "./Component/Family/CreateFamily";
+import Join from "./Component/Family/Join";
 
 const Stack = createStackNavigator();
 
@@ -50,6 +53,9 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ChiTieu" component={ChiTieu} />
         <Stack.Screen name="Family" component={Family} />
+        <Stack.Screen name="MainProfile" component={MainProfile} />
+        <Stack.Screen name="CreateFamily" component={CreateFamily} />
+        <Stack.Screen name="Join" component={Join} />
       </Stack.Navigator>
     </NavigationContainer>
   );

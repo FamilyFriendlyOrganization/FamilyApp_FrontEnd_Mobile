@@ -68,7 +68,7 @@ const Login = () => {
       <View style={styles.formContainer}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Welcome")}
         >
           <AntDesign name="arrowleft" size={24} color="black" />
         </TouchableOpacity>
@@ -113,11 +113,6 @@ const Login = () => {
 
           {/* Văn bản "Ghi nhớ tôi" ngay cạnh checkbox */}
           <Text style={styles.rememberText}>Ghi nhớ tôi</Text>
-
-          {/* Quên mật khẩu ở bên phải */}
-          <TouchableOpacity style={styles.forgotPasswordContainer}>
-            <Text style={styles.forgotPasswordText}>Quên mật khẩu?</Text>
-          </TouchableOpacity>
         </View>
 
         {/* Nút Tiếp tục */}

@@ -86,7 +86,7 @@ const SignUp = () => {
       <View style={styles.formContainer}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Login")}
         >
           <AntDesign name="arrowleft" size={20} color="#007BFF" />
           <Text style={styles.backText}>Đã có tài khoản, đăng nhập ngay</Text>
@@ -134,7 +134,7 @@ const SignUp = () => {
           />
         </View>
 
-        <TouchableOpacity style={styles.submitButton} onPress={handleRegister}>
+        <TouchableOpacity style={styles.submitButton}>
           <Text style={styles.submitButtonText}>Tiếp tục</Text>
         </TouchableOpacity>
       </View>

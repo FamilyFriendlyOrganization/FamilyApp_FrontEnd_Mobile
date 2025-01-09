@@ -8,6 +8,7 @@ import {
 } from "@expo/vector-icons";
 import { Calendar } from "react-native-calendars";
 import Footer from "../Component/Footer";
+import Header from "../Component/Header";
 
 const AppCalendar = () => {
   const [activeTab, setActiveTab] = useState("calendar"); // Tab hiện đang được chọn
@@ -19,20 +20,7 @@ const AppCalendar = () => {
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Chuyển tiền</Text>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity>
-            <Feather name="search" size={20} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 16 }}>
-            <Feather name="x" size={20} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Lich" />
       <View style={styles.container}>
         <Calendar
           onDayPress={onDayPress}

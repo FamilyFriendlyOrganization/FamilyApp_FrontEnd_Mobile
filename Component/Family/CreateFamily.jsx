@@ -10,7 +10,7 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 
-const SelectFamily = () => {
+const CreateFamily = () => {
   const [selectedFamily, setSelectedFamily] = React.useState("");
   const navigation = useNavigation();
 
@@ -31,34 +31,26 @@ const SelectFamily = () => {
         <Text style={styles.greeting}>Xin chào, Nguyễn Văn A</Text>
         <Text style={styles.question}>Ngày hôm nay của bạn thế nào??</Text>
         <Text style={styles.infoText}>
-          Bạn đang là thành viên của 2 gia đình, chọn 1 ngay nhé!
+          Bạn đang chưa có gia đình, hãy tạo hoặc tham gia ngay nhé!
         </Text>
-
-        {/* Family Picker */}
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={selectedFamily}
-            onValueChange={(itemValue) => setSelectedFamily(itemValue)}
-            style={styles.picker}
+        {/* Hai nút Tham gia và Tạo */}
+        <View style={styles.buttonContainer}>
+          {/* Nút Tham gia */}
+          <TouchableOpacity
+            style={[styles.actionButton, styles.joinButton]}
+            onPress={() => navigation.navigate("Join")} // Điều hướng tới trang tham gia
           >
-            <Picker.Item label="Hãy chọn gia đình..." value="" />
-            <Picker.Item label="Gia đình 1" value="family1" />
-            <Picker.Item label="Gia đình 2" value="family2" />
-          </Picker>
-        </View>
-        <Text
-          style={styles.infoText}
-          onPress={() => navigation.navigate("CreateFamily")}
-        >
-          Nếu bạn chưa có gia đình, hãy tạo hoặc tham gia ngay nhé!
-        </Text>
+            <Text style={styles.buttonText}>Tham gia</Text>
+          </TouchableOpacity>
 
-        {/* Continue Button */}
-        <TouchableOpacity style={styles.continueButton}>
-          <Text style={styles.continueButtonText} onPress={handleTiepTuc}>
-            Tiếp tục
-          </Text>
-        </TouchableOpacity>
+          {/* Nút Tạo */}
+          <TouchableOpacity
+            style={[styles.actionButton, styles.createButton]}
+            onPress={() => navigation.navigate("Home")} // Điều hướng tới trang tạo mới
+          >
+            <Text style={styles.buttonText}>Tạo</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -125,6 +117,30 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  buttonContainer: {
+    flexDirection: "row", // Sắp xếp các nút theo hàng ngang
+    justifyContent: "space-between", // Tạo khoảng cách giữa các nút
+    width: "100%",
+    marginTop: 20,
+  },
+  actionButton: {
+    flex: 1, // Chia đều không gian cho mỗi nút
+    paddingVertical: 10,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  joinButton: {
+    backgroundColor: "#2196F3", // Màu xanh cho nút Tham gia
+  },
+  createButton: {
+    backgroundColor: "#6A0DAD", // Màu tím cho nút Tạo
+  },
+  buttonText: {
+    color: "#FFF", // Màu chữ trắng
+    fontWeight: "bold",
+    fontSize: 16,
+  },
 });
 
-export default SelectFamily;
+export default CreateFamily;

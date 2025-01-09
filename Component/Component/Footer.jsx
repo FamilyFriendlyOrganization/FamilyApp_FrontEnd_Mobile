@@ -46,7 +46,7 @@ const Footer = ({ activeTab, setActiveTab }) => {
       <TouchableOpacity
         onPress={() => {
           setActiveTab("profile");
-          navigation.navigate("Profile");
+          navigation.navigate("MainProfile");
         }}
       >
         <Image
