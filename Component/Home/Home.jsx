@@ -113,8 +113,8 @@ const Home = () => {
           </View>
 
           {/* Thêm nút Đăng xuất */}
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.logoutText}>Đăng xuất</Text>
+          <TouchableOpacity>
+            <Text style={styles.logoutText}></Text>
           </TouchableOpacity>
         </View>
       </View>
