@@ -33,6 +33,8 @@ import tt1 from "./assets/tt1.png";
 import tt2 from "./assets/tt2.png";
 import tt3 from "./assets/tt3.png";
 import tt4 from "./assets/tt4.png";
+
+import Footer from "../Component/Footer"; // Đường dẫn tới Footer.jsx
 const Home = () => {
   const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
   const navigation = useNavigation();
@@ -206,42 +208,7 @@ const Home = () => {
         </View>
       </ScrollView>
       {/* Phần Footer */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={() => setActiveTab("home")}>
-          <Image
-            source={require("../../assets/Profile/Footer/home.png")}
-            style={[styles.icon, activeTab === "home" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("calendar")}>
-          <Image
-            source={require("../../assets/Profile/Footer/calendar.png")}
-            style={[styles.icon, activeTab === "calendar" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("more")}>
-          <Image
-            source={require("../../assets/Profile/Footer/more.png")}
-            style={[styles.icon, activeTab === "more" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("money")}>
-          <Image
-            source={require("../../assets/Profile/Footer/money.png")}
-            style={[styles.icon, activeTab === "money" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("profile")}>
-          <Image
-            source={require("../../assets/Profile/Footer/profile.png")}
-            style={[styles.icon, activeTab === "profile" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-      </View>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };

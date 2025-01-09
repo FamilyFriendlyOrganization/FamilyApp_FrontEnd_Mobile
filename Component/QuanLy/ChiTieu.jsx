@@ -12,6 +12,9 @@ import { useState } from "react";
 import { VictoryPie } from "victory-native";
 import Icon from "react-native-vector-icons/MaterialIcons"; // Use MaterialIcons for arrows
 import { useNavigation } from "@react-navigation/native";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
+
 const ChiTieu = () => {
   const navigation = useNavigation(); // Khởi tạo navigation
   const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
@@ -113,32 +116,7 @@ const ChiTieu = () => {
   return (
     <View style={{ flex: 1 }}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.iconButton}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Image
-            source={require("../../assets/Family/Header/return.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Quản lý chi tiêu</Text>
-        <View style={styles.headerActions}>
-          <TouchableOpacity style={styles.iconButton}>
-            <Image
-              source={require("../../assets/Family/Header/search.png")}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Image
-              source={require("../../assets/Family/Header/cancel.png")}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Quản lý chi tiêu" />
 
       {/* Main */}
 
@@ -276,57 +254,7 @@ const ChiTieu = () => {
       </View>
 
       {/* Phần Footer */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={() => setActiveTab("home")}>
-          <Image
-            source={require("../../assets/Profile/Footer/home.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "home" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("calendar")}>
-          <Image
-            source={require("../../assets/Profile/Footer/calendar.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "calendar" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("more")}>
-          <Image
-            source={require("../../assets/Profile/Footer/more.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "more" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("money")}>
-          <Image
-            source={require("../../assets/Profile/Footer/money.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "money" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("profile")}>
-          <Image
-            source={require("../../assets/Profile/Footer/profile.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "profile" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-      </View>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
