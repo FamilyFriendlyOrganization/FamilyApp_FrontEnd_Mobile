@@ -10,6 +10,8 @@ import {
   ScrollView,
 } from "react-native";
 import { useState } from "react";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
 
 const familyMembers = [
   {
@@ -43,50 +45,22 @@ const familyMembers = [
 ];
 
 const Family = () => {
-  const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
+  const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
   return (
     <View style={{ flex: 1 }}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image
-            source={require("../../assets/Family/Header/return.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Gia đình</Text>
-        <View style={styles.headerActions}>
-          <TouchableOpacity style={styles.iconButton}>
-            <Image
-              source={require("../../assets/Family/Header/search.png")}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Image
-              source={require("../../assets/Family/Header/cancel.png")}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Thêm thành viên" />
       {/* Main Section */}
       <View style={styles.mainContainer}>
         {/* Search and Add Member Section */}
         <View style={styles.searchContainer}>
-          <Image
-            source={require("../../assets/Family/Main/search.png")}
-            style={styles.searchIcon}
-          />
-          <TextInput style={styles.input} placeholder="aaaa5@gmail.com" />
-          <TextInput style={styles.input} placeholder="aaaaaa@gmail.com" />
+          <Text style={styles.familyTitle}>Gia đình Batman</Text>
           <TouchableOpacity style={styles.addButton}>
-            <Text style={styles.addButtonText}>Thêm thành viên</Text>
+            <Text style={styles.addButtonText}>Tạo lời mời</Text>
           </TouchableOpacity>
         </View>
 
         {/* Family Title */}
-        <Text style={styles.familyTitle}>Gia đình Batman</Text>
 
         {/* Family Members List */}
         <FlatList
@@ -130,57 +104,7 @@ const Family = () => {
       </View>
 
       {/* Phần Footer */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={() => setActiveTab("home")}>
-          <Image
-            source={require("../../assets/Profile/Footer/home.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "home" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("calendar")}>
-          <Image
-            source={require("../../assets/Profile/Footer/calendar.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "calendar" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("more")}>
-          <Image
-            source={require("../../assets/Profile/Footer/more.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "more" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("money")}>
-          <Image
-            source={require("../../assets/Profile/Footer/money.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "money" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("profile")}>
-          <Image
-            source={require("../../assets/Profile/Footer/profile.png")}
-            style={[
-              styles.iconfooter,
-              activeTab === "profile" && styles.activeIcon,
-            ]}
-          />
-        </TouchableOpacity>
-      </View>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
@@ -244,8 +168,10 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: "white",
     fontWeight: "bold",
+    fontSize: 18,
   },
   familyTitle: {
+    marginRight: 170,
     fontSize: 20,
     fontWeight: "bold",
     color: "#6A0DAD",
