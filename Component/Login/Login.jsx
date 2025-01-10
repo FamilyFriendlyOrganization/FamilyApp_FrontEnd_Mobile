@@ -18,6 +18,12 @@ import { useNavigation } from "@react-navigation/native";
 import useAuth from "../../useAuth";
 import { AntDesign } from "@expo/vector-icons";
 import { CheckBox } from "react-native-elements";
+
+const fakeUsers = [
+  { username: "user1", password: "password1" },
+  { username: "user2", password: "password2" },
+  { username: "user3", password: "password3" },
+];
 const Login = () => {
   // State lưu trữ thông tin username và mật khẩu
   const [username, setusername] = useState("");
@@ -25,53 +31,27 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const navigation = useNavigation();
 
-  // Hàm xử lý đăng nhập
-  const handleLogin = async () => {
-    // const payload = {
-    //   username,
-    //   password,
-    // };
+  const handleLogin = () => {
+    const userExists = fakeUsers.some(
+      (user) => user.username === username && user.password === password
+    );
 
-    // try {
-    //   const response = await fetch("http://10.0.2.2:8080/api/auth/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(payload),
-    //   });
-
-    //   if (response.ok) {
-    //     const data = await response.json();
-
-    //     // Lưu thông tin người dùng vào AsyncStorage và bộ nhớ tạm
-    //     await useAuth.saveUserData(data);
-
-    //     // Thông báo đăng nhập thành công
-    //     Alert.alert("Thành công", "Đăng nhập thành công!");
-
-    //     // Chuyển hướng đến trang Home
-    //     navigation.navigate("SelectFamily");
-    //   } else {
-    //     const errorData = await response.json();
-    //     Alert.alert("Lỗi", errorData.message || "Đăng nhập thất bại.");
-    //   }
-    // } catch (error) {
-    //   console.error("Fetch Error:", error.message);
-    //   Alert.alert("Lỗi", "Không thể kết nối đến server!");
-    // }
-    navigation.navigate("SelectFamily");
+    if (userExists) {
+      Alert.alert("Thành công", "Đăng nhập thành công!");
+      navigation.navigate("SelectFamily");
+    } else {
+      Alert.alert("Lỗi", "Sai tài khoản hoặc mật khẩu. Vui lòng thử lại!");
+    }
   };
-
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
       <View style={styles.formContainer}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.navigate("Welcome")}
         >
           <AntDesign name="arrowleft" size={24} color="black" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text style={styles.formTitle}>Đăng nhập</Text>
         {/* username/SĐT input */}
         <View style={styles.inputContainer}>
@@ -123,7 +103,7 @@ const Login = () => {
         {/* Tạo tài khoản */}
         <View style={styles.registerContainer}>
           <Text style={styles.register}>Chưa có tài khoản? </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
             <Text style={styles.registerText}>Đăng ký ngay</Text>
           </TouchableOpacity>
         </View>
@@ -182,8 +162,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   checkbox: {
-    position: "absolute",
-    left: 15,
+    position: "relative",
+    marginLeft: 10,
     width: 20,
     height: 20,
     borderWidth: 1,
@@ -195,7 +175,7 @@ const styles = StyleSheet.create({
   },
   rememberText: {
     position: "relative",
-    left: 45,
+    left: -230,
     fontSize: 14,
     color: "#333",
     marginRight: 20, // Giữ khoảng cách với nút "Quên mật khẩu"
@@ -242,12 +222,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  backButton: {
-    position: "absolute",
-    top: 26,
-    left: 100,
-    zIndex: 10, // Đảm bảo nút hiển thị phía trước
-  },
+
   checkboxContainer: {
     flexDirection: "row",
     alignItems: "center",

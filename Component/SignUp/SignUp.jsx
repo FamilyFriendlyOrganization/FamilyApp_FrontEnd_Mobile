@@ -8,10 +8,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import "react-native-get-random-values"; // Import thư viện này trước
-import { v4 as uuidv4 } from "uuid";
 import { AntDesign } from "@expo/vector-icons";
 
 // Import hình ảnh
@@ -22,7 +21,11 @@ import heart from "../../assets/SignUp/Heart.png";
 import key from "../../assets/SignUp/key.png";
 import mail from "../../assets/SignUp/mail.png";
 import user from "../../assets/SignUp/user.png";
-import xicon from "../../assets/SignUp/xicon.png";
+
+const fakeUsers = [
+  { username: "user1", email: "user1@example.com" },
+  { username: "user2", email: "user2@example.com" },
+];
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -34,128 +37,130 @@ const SignUp = () => {
   const [displayName, setDisplayName] = useState("");
 
   // Hàm xử lý đăng ký
-  const handleRegister = async () => {
-    const accountId = uuidv4(); // Tạo accountId ngẫu nhiên
-    const payload = {
-      username,
-      password,
-      email,
-      displayName,
-      accountId,
-      accountStatus: 0,
-    };
+  const handleRegister = () => {
+    // Kiểm tra trường không được bỏ trống
+    if (!username || !password || !email || !displayName) {
+      Alert.alert("Lỗi", "Vui lòng điền đầy đủ tất cả các trường.");
+      return;
+    }
 
-    try {
-      const response = await fetch("http://10.0.2.2:8080/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    // Kiểm tra xem username hoặc email đã tồn tại chưa
+    const userExists = fakeUsers.some(
+      (user) => user.username === username || user.email === email
+    );
+
+    if (userExists) {
+      Alert.alert(
+        "Lỗi",
+        "Tên tài khoản hoặc email đã tồn tại. Vui lòng nhập lại!"
+      );
+    } else {
+      // Giả lập thêm tài khoản vào danh sách
+      fakeUsers.push({ username, email });
+
+      // Hiển thị thông báo đăng ký thành công
+      Alert.alert("Thành công", "Đăng ký tài khoản thành công!", [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("Login"), // Chuyển đến màn hình Login
         },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        Alert.alert("Thành công", "Đăng ký tài khoản thành công!", [
-          {
-            text: "OK",
-            onPress: () => navigation.navigate("Login"),
-          },
-        ]);
-      } else {
-        const errorData = await response.json();
-        Alert.alert("Lỗi", errorData.message || "Đăng ký thất bại.");
-      }
-    } catch (error) {
-      console.error("Fetch Error:", error.message);
-      Alert.alert("Lỗi", "Không thể kết nối đến server!");
+      ]);
     }
   };
 
   return (
-    <ImageBackground source={backgroundImage} style={styles.background}>
-      {/* Phần chứa lời chào */}
-      <View style={styles.greetingContainer}>
-        <View style={styles.greetingBox}>
-          <Text style={styles.greetingText}>Chào</Text>
-        </View>
-        <Text style={styles.greetingSubText}>Bắt đầu nào!</Text>
-      </View>
-
-      {/* Form đăng ký */}
-
-      <View style={styles.formContainer}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <AntDesign name="arrowleft" size={20} color="#007BFF" />
-          <Text style={styles.backText}>Đã có tài khoản, đăng nhập ngay</Text>
-        </TouchableOpacity>
-        <Text style={styles.formTitle}>Đăng ký</Text>
-
-        <View style={styles.inputContainer}>
-          <Image source={user} style={styles.icon} resizeMode="contain" />
-          <TextInput
-            placeholder="Nhập tên tài khoản"
-            style={styles.input}
-            value={username}
-            onChangeText={setUsername}
-          />
+    <ScrollView contentContainerStyle={styles.background}>
+      <ImageBackground source={backgroundImage} style={styles.imageBackground}>
+        {/* Phần chứa lời chào */}
+        {/* Phần chứa lời chào */}
+        <View style={styles.greetingContainer}>
+          <View style={styles.greetingBox}>
+            <Text style={styles.greetingText}>Chào</Text>
+          </View>
+          <Text style={styles.greetingSubText}>Bắt đầu nào!</Text>
         </View>
 
-        <View style={styles.inputContainer}>
-          <Image source={key} style={styles.icon} resizeMode="contain" />
-          <TextInput
-            placeholder="Nhập mật khẩu"
-            secureTextEntry
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-          />
-        </View>
+        {/* Form đăng ký */}
+        <View style={styles.formContainer}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.navigate("Login")}
+          >
+            <AntDesign name="arrowleft" size={20} color="#007BFF" />
+            <Text style={styles.backText}>Đã có tài khoản, đăng nhập ngay</Text>
+          </TouchableOpacity>
+          <Text style={styles.formTitle}>Đăng ký</Text>
 
-        <View style={styles.inputContainer}>
-          <Image source={mail} style={styles.icon} resizeMode="contain" />
-          <TextInput
-            placeholder="Nhập email của bạn"
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-          />
-        </View>
+          <View style={styles.inputContainer}>
+            <Image source={user} style={styles.icon} resizeMode="contain" />
+            <TextInput
+              placeholder="Nhập tên tài khoản"
+              style={styles.input}
+              value={username}
+              onChangeText={setUsername}
+            />
+          </View>
 
-        <View style={styles.inputContainer}>
-          <Image source={heart} style={styles.icon} resizeMode="contain" />
-          <TextInput
-            placeholder="Nhập tên bạn muốn dùng"
-            style={styles.input}
-            value={displayName}
-            onChangeText={setDisplayName}
-          />
-        </View>
+          <View style={styles.inputContainer}>
+            <Image source={key} style={styles.icon} resizeMode="contain" />
+            <TextInput
+              placeholder="Nhập mật khẩu"
+              secureTextEntry
+              style={styles.input}
+              value={password}
+              onChangeText={setPassword}
+            />
+          </View>
 
-        <TouchableOpacity
-          style={styles.submitButton}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Text style={styles.submitButtonText}>Tiếp tục</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+          <View style={styles.inputContainer}>
+            <Image source={mail} style={styles.icon} resizeMode="contain" />
+            <TextInput
+              placeholder="Nhập email của bạn"
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Image source={heart} style={styles.icon} resizeMode="contain" />
+            <TextInput
+              placeholder="Nhập tên bạn muốn dùng"
+              style={styles.input}
+              value={displayName}
+              onChangeText={setDisplayName}
+            />
+          </View>
+
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={handleRegister}
+          >
+            <Text style={styles.submitButtonText}>Tiếp tục</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
+  imageBackground: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   greetingContainer: {
-    position: "absolute",
-    top: 50,
-    right: 20,
-    alignItems: "flex-end",
+    alignItems: "center",
+    marginTop: 40, // Đẩy phần chào xuống
+    marginBottom: 20, // Khoảng cách phía dưới
   },
   greetingBox: {
     backgroundColor: "white",
@@ -163,16 +168,19 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     marginBottom: 5,
+    marginLeft: 300,
   },
   greetingText: {
     color: "#7B61FF",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 24,
   },
   greetingSubText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
+    marginBottom: 100,
+    marginLeft: 300,
   },
   formContainer: {
     width: "90%",
@@ -180,20 +188,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 15,
     alignItems: "center",
+    marginTop: 20, // Đẩy form xuống
   },
   backButton: {
-    position: "relative",
-    flexDirection: "row", // Hiển thị icon và text theo hàng ngang
+    flexDirection: "row",
     alignItems: "center",
+    marginBottom: 20,
   },
   backText: {
-    color: "#007BFF", // Màu xanh giống trong hình
+    color: "#007BFF",
     fontSize: 16,
     fontWeight: "bold",
-    marginLeft: 5, // Khoảng cách giữa icon và text
+    marginLeft: 5,
   },
   formTitle: {
-    fontSize: 50,
+    fontSize: 30,
     fontWeight: "bold",
     color: "#7B61FF",
     marginBottom: 20,
@@ -202,6 +211,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 15,
+    width: "100%",
   },
   icon: {
     width: 25,
@@ -218,22 +228,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#7B61FF",
     padding: 15,
     borderRadius: 10,
+    width: "100%",
+    alignItems: "center",
     marginTop: 20,
   },
   submitButtonText: {
     color: "white",
     fontWeight: "bold",
     fontSize: 16,
-  },
-  socialIconsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "60%",
-    marginTop: 20,
-  },
-  socialIcon: {
-    width: 50,
-    height: 50,
   },
 });
 

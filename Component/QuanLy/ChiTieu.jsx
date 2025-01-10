@@ -154,11 +154,11 @@ const ChiTieu = () => {
           </View>
           <Text style={styles.balanceAmount}>{balanceText}</Text>
         </View>
-        <View>
+        {/* <View>
           <TouchableOpacity>
             <Text style={styles.detailButtonText}>Xem chi tiết</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
 
       {/* Main Content Section */}
@@ -259,9 +259,9 @@ const ChiTieu = () => {
         />
 
         {/* "Xem thêm" Button (Static) */}
-        <TouchableOpacity style={styles.showMoreButton}>
+        {/* <TouchableOpacity style={styles.showMoreButton}>
           <Text style={styles.showMoreText}>Xem thêm</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* Phần Footer */}

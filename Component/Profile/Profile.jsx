@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Alert,
 } from "react-native";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
@@ -13,6 +14,24 @@ import Footer from "../Component/Footer";
 const Profile = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState("profile"); // Tab hiện đang được chọn
   const [showPassword, setShowPassword] = useState(false); // Kiểm soát hiển thị mật khẩu
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [displayName, setDisplayName] = useState("");
+
+  const handleSave = () => {
+    if (!username || !password || !email || !displayName) {
+      Alert.alert("Lỗi", "Vui lòng nhập đầy đủ các trường thông tin!");
+      return;
+    }
+
+    Alert.alert("Thành công", "Thông tin của bạn đã được lưu!", [
+      {
+        text: "OK",
+        onPress: () => navigation.navigate("Home"),
+      },
+    ]);
+  };
 
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
@@ -38,7 +57,11 @@ const Profile = ({ navigation }) => {
         {/* Các trường nhập liệu */}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Tên đăng nhập</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            style={styles.input}
+            value={username}
+            onChangeText={setUsername}
+          />
         </View>
 
         <View style={styles.inputContainer}>
@@ -47,6 +70,8 @@ const Profile = ({ navigation }) => {
             <TextInput
               style={styles.inputpassword}
               secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
             />
             <TouchableOpacity
               onPress={() => setShowPassword(!showPassword)}
@@ -59,18 +84,27 @@ const Profile = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Email</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
 
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Tên hiển thị</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            style={styles.input}
+            value={displayName}
+            onChangeText={setDisplayName}
+          />
         </View>
 
         {/* Nút lưu thay đổi */}
-        <TouchableOpacity style={styles.saveButton}>
+        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
           <Text style={styles.saveButtonText}>Lưu thay đổi</Text>
         </TouchableOpacity>
       </View>
@@ -149,7 +183,7 @@ const styles = StyleSheet.create({
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 5, // Giữ lại để có bo góc
+    borderRadius: 5,
     paddingHorizontal: 8,
   },
   saveButton: {
@@ -204,11 +238,11 @@ const styles = StyleSheet.create({
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fff", // Màu nền trắng cho khung
+    backgroundColor: "#fff",
     borderRadius: 5,
-    borderWidth: 1, // Thêm viền nếu cần
+    borderWidth: 1,
     borderColor: "#ddd",
-    paddingRight: 10, // Thêm padding bên phải
+    paddingRight: 10,
   },
 
   inputpassword: {
@@ -220,7 +254,7 @@ const styles = StyleSheet.create({
 
   eyeIconContainer: {
     justifyContent: "center",
-    padding: 10, // Padding để icon không quá sát biên
+    padding: 10,
   },
 
   iconeye: {
