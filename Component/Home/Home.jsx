@@ -99,14 +99,19 @@ const Home = () => {
         <Image source={backgroundHeader} style={styles.background} />
         <View style={styles.content}>
           <View style={styles.textContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
               <Image source={homeIcon} style={styles.icon} />
             </TouchableOpacity>
             <Text style={styles.title}>Trang chủ</Text>
           </View>
 
           <View style={styles.iconsRight}>
-            <TouchableOpacity style={styles.notificationContainer}>
+            <TouchableOpacity
+              style={styles.notificationContainer}
+              onPress={() => {
+                navigation.navigate("Notification");
+              }}
+            >
               <Image source={notificationIcon} style={styles.icon} />
               <Text style={styles.notificationBadge}>2</Text>
             </TouchableOpacity>

@@ -23,6 +23,8 @@ import DatHen from "./Component/Calendar/DatHen";
 import AnUong from "./Component/QuanLy/AnUong";
 import MuaSam from "./Component/QuanLy/MuaSam";
 import DiChuyen from "./Component/QuanLy/DiChuyen";
+import Notification from "./Component/Notification/Notification";
+import NotificationDetail from "./Component/Notification/DetailNotification";
 
 const Stack = createStackNavigator();
 
@@ -63,7 +65,12 @@ export default function App() {
         <Stack.Screen name="DatHen" component={DatHen} />
         <Stack.Screen name="AnUong" component={AnUong} />
         <Stack.Screen name="MuaSam" component={MuaSam} />
+        <Stack.Screen name="Notification" component={Notification} />
         <Stack.Screen name="DiChuyen" component={DiChuyen} />
+        <Stack.Screen
+          name="NotificationDetail"
+          component={NotificationDetail}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
