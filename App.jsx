@@ -35,7 +35,14 @@ import RoomDetailPage from "./Component/More/FeatureMore/FlightBookingPage/RoomD
 import TravelDestinationsPage from "./Component/More/FeatureMore/PopularService.jsx/TravelDestinationsPage";
 import ClothingPage from "./Component/More/FeatureMore/PopularService.jsx/ClothingPage";
 import MovieSuggestionsPage from "./Component/More/FeatureMore/PopularService.jsx/MovieSuggestionsPage";
-
+import InvoicePage from "./Component/More/FeatureMore/Invoice/InvoicePage";
+import BillPage from "./Component/More/FeatureMore/Invoice/BillPage";
+import NetworkProviderPage from "./Component/More/FeatureMore/Invoice/NetworkProviderPage";
+import BillInputPage from "./Component/More/FeatureMore/Invoice/BillInputPage";
+import WaterProvidersPage from "./Component/More/FeatureMore/Invoice/WaterProvidersPage";
+import BillInputPage1 from "./Component/More/FeatureMore/Invoice/BillInputPage1";
+import EducationProviderPage from "./Component/More/FeatureMore/Invoice/EducationProviderPage";
+import BillInputPage2 from "./Component/More/FeatureMore/Invoice/BillInputPage2";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -100,6 +107,23 @@ export default function App() {
           name="MovieSuggestionsPage"
           component={MovieSuggestionsPage}
         />
+        <Stack.Screen name="InvoicePage" component={InvoicePage} />
+        <Stack.Screen name="BillPage" component={BillPage} />
+        <Stack.Screen
+          name="NetworkProviderPage"
+          component={NetworkProviderPage}
+        />
+        <Stack.Screen name="BillInputPage" component={BillInputPage} />
+        <Stack.Screen
+          name="WaterProvidersPage"
+          component={WaterProvidersPage}
+        />
+        <Stack.Screen name="BillInputPage1" component={BillInputPage1} />
+        <Stack.Screen
+          name="EducationProviderPage"
+          component={EducationProviderPage}
+        />
+        <Stack.Screen name="BillInputPage2" component={BillInputPage2} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -96,13 +96,28 @@ const More = () => {
       },
     ],
     bills: [
-      { icon: require("./assets/TienDien.png"), label: "Tiền điện" },
-      { icon: require("./assets/TienMang.png"), label: "Tiền mạng" },
-      { icon: require("./assets/TienNuoc.png"), label: "Tiền nước" },
-      { icon: require("./assets/HocPhi.png"), label: "Học phí" },
+      {
+        icon: require("./assets/TienDien.png"),
+        label: "Tiền điện",
+        navigateTo: "InvoicePage",
+      },
+      {
+        icon: require("./assets/TienMang.png"),
+        label: "Tiền mạng",
+        navigateTo: "NetworkProviderPage",
+      },
+      {
+        icon: require("./assets/TienNuoc.png"),
+        label: "Tiền nước",
+        navigateTo: "WaterProvidersPage",
+      },
+      {
+        icon: require("./assets/HocPhi.png"),
+        label: "Học phí",
+        navigateTo: "EducationProviderPage",
+      },
     ],
   };
-
   const renderServiceGroup = (title, items) => (
     <View style={styles.serviceGroup}>
       <Text style={styles.groupTitle}>{title}</Text>
