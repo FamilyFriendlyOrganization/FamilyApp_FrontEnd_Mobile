@@ -261,23 +261,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  flagIcon: {
-    width: 24,
-    height: 24,
-    resizeMode: "contain",
-    position: "absolute",
-    top: 10,
-    right: 10,
-  },
+
   notificationContainer: {
-    position: "absolute",
-    right: -150,
+    marginLeft: 200,
+    marginBottom: 35,
     marginHorizontal: 10,
   },
   notificationBadge: {
-    position: "absolute",
-    top: -5,
-    right: -5,
+    marginTop: -45,
+    marginLeft: 38,
     backgroundColor: "red",
     color: "white",
     borderRadius: 10,
@@ -338,18 +330,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#000",
     marginTop: 5, // Tạo khoảng cách với ảnh
-  },
-  footerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    height: 70,
-    backgroundColor: "#f1f1f1",
-    borderTopWidth: 1,
-    borderColor: "#ccc",
-    position: "absolute", // Cố định vị trí ở dưới cùng
-    bottom: 0, // Đặt ở cạnh dưới
-    width: "100%", // Chiếm toàn bộ chiều ngang
   },
   iconContainer: {
     justifyContent: "center",
@@ -436,14 +416,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 30,
-  },
-  logoutText: {
-    color: "#FFFFFF", // Màu trắng cho chữ
-    fontSize: 24, // Cỡ chữ
-    fontWeight: "bold", // Chữ đậm
-    position: "absolute", // Đặt vị trí tuyệt đối
-    top: -55, // Khoảng cách từ trên xuống
-    right: 0, // Căn lề phải
   },
 });
 

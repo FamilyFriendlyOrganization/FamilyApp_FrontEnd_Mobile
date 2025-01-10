@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 20,
-    marginTop: 200,
+    marginTop: 10,
     paddingHorizontal: 10,
   },
   totalLabel: {
