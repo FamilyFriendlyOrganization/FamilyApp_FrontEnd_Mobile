@@ -20,6 +20,9 @@ import MainProfile from "./Component/Profile/MainProfile";
 import CreateFamily from "./Component/Family/CreateFamily";
 import Join from "./Component/Family/Join";
 import DatHen from "./Component/Calendar/DatHen";
+import AnUong from "./Component/QuanLy/AnUong";
+import MuaSam from "./Component/QuanLy/MuaSam";
+import DiChuyen from "./Component/QuanLy/DiChuyen";
 
 const Stack = createStackNavigator();
 
@@ -58,6 +61,9 @@ export default function App() {
         <Stack.Screen name="CreateFamily" component={CreateFamily} />
         <Stack.Screen name="Join" component={Join} />
         <Stack.Screen name="DatHen" component={DatHen} />
+        <Stack.Screen name="AnUong" component={AnUong} />
+        <Stack.Screen name="MuaSam" component={MuaSam} />
+        <Stack.Screen name="DiChuyen" component={DiChuyen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

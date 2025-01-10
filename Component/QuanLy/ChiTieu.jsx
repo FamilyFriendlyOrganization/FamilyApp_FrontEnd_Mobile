@@ -24,6 +24,7 @@ const ChiTieu = () => {
   const [data, setData] = useState([
     { category: "Ăn uống", value: 53 },
     { category: "Mua sắm", value: 20 },
+    { category: "Di chuyển", value: 27 },
   ]); // Default pie chart data
   const [isBalanceVisible, setBalanceVisible] = useState(false);
   const inAmount = 1000000; // Example income
@@ -38,10 +39,8 @@ const ChiTieu = () => {
     if (tab === "Chi tiêu") {
       setData([
         { category: "Ăn uống", value: 50 },
-        { category: "Mua sắm", value: 20 },
-        { category: "Mua sắm1", value: 30 },
-        { category: "Mua sắm2", value: 40 },
-        { category: "Mua sắm3", value: 50 },
+        { category: "Mua sắm", value: 20 }, // Giữ đúng danh mục
+        { category: "Di chuyển", value: 30 }, // Bổ sung nếu cần
       ]);
     } else {
       setData([
@@ -73,29 +72,42 @@ const ChiTieu = () => {
   const topLegends = sortedData.slice(0, 2);
 
   const renderLegendItem = ({ item }) => {
-    const totalValue = data.reduce((sum, item) => sum + item.value, 0); // Calculate total value
-    const percentage = ((item.value / totalValue) * 100).toFixed(0); // Calculate percentage
-
-    // Find the original index of the category in the `data` array
+    const totalValue = data.reduce((sum, item) => sum + item.value, 0); // Tổng giá trị
+    const percentage = ((item.value / totalValue) * 100).toFixed(0); // Tính phần trăm
     const originalIndex = data.findIndex(
       (dataItem) => dataItem.category === item.category
     );
 
     return (
-      <View style={styles.legendItem}>
-        <View
-          style={[
-            styles.legendColorBox,
-            { backgroundColor: colorScale[originalIndex % colorScale.length] }, // Use the color based on original index
-          ]}
-        />
-        <View style={styles.legendTextContainer}>
-          <Text style={styles.legendCategoryText}>{item.category}</Text>
-          <Text style={styles.legendValueText}>{`${percentage}%`}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          if (item.category === "Ăn uống") {
+            navigation.navigate("AnUong", { category: item.category });
+          } else if (item.category === "Mua sắm") {
+            navigation.navigate("MuaSam", { category: item.category }); // Điều hướng đến Mua sắm
+          } else if (item.category === "Di chuyển") {
+            navigation.navigate("DiChuyen", { category: item.category }); // Điều hướng đến Di chuyển
+          }
+        }}
+      >
+        <View style={styles.legendItem}>
+          <View
+            style={[
+              styles.legendColorBox,
+              {
+                backgroundColor: colorScale[originalIndex % colorScale.length],
+              },
+            ]}
+          />
+          <View style={styles.legendTextContainer}>
+            <Text style={styles.legendCategoryText}>{item.category}</Text>
+            <Text style={styles.legendValueText}>{`${percentage}%`}</Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
+
   const colorScale = ["#FF5722", "#4CAF50", "#2196F3", "#FFEB3B", "#9C27B0"];
 
   const months = [
@@ -231,20 +243,19 @@ const ChiTieu = () => {
         {/* Pie Chart */}
         <View style={styles.chartContainer}>
           <VictoryPie
-            data={data.map((item) => ({ x: item.category, y: item.value }))}
-            colorScale={colorScale} // Use the color scale
+            data={data.map((item) => ({ x: item.category, y: item.value }))} // Đảm bảo danh mục "Mua sắm" có giá trị
+            colorScale={colorScale}
             innerRadius={60}
             height={Dimensions.get("window").height * 0.35}
-            labels={() => null} // Remove labels
+            labels={() => null} // Không hiển thị nhãn trực tiếp trên biểu đồ
           />
         </View>
 
         {/* Legends Section */}
         <FlatList
-          data={topLegends} // Always show top two legends
+          data={data} // Đảm bảo dữ liệu bao gồm "Mua sắm"
           renderItem={renderLegendItem}
           keyExtractor={(item, index) => `${item.category}-${index}`}
-          style={styles.legendList}
         />
 
         {/* "Xem thêm" Button (Static) */}

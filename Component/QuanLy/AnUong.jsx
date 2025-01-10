@@ -8,10 +8,18 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis, VictoryLabel } from "victory-native";
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryTheme,
+  VictoryAxis,
+  VictoryLabel,
+} from "victory-native";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
 
 const AnUong = () => {
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState("money");
   const [timeRange, setTimeRange] = useState("week");
   const [selectedBar, setSelectedBar] = useState(null); // Track the selected bar
 
@@ -39,11 +47,23 @@ const AnUong = () => {
     {
       date: "30/10/2024",
       data: [
-        { id: 1, description: "Chuyển tiền đến Nguyễn Thúy Vân", amount: -30000 },
+        {
+          id: 1,
+          description: "Chuyển tiền đến Nguyễn Thúy Vân",
+          amount: -30000,
+        },
         { id: 2, description: "Chuyển tiền đến Đặng Thị Trúc", amount: -40000 },
-        { id: 3, description: "Chuyển tiền đến Đinh Thị Bích Ngọc", amount: -100000 },
+        {
+          id: 3,
+          description: "Chuyển tiền đến Đinh Thị Bích Ngọc",
+          amount: -100000,
+        },
         { id: 4, description: "Chuyển tiền đến Hồ Văn Hải", amount: -90000 },
-        { id: 5, description: "Chuyển tiền đến Nguyễn Xuân Nhựt", amount: -50000 },
+        {
+          id: 5,
+          description: "Chuyển tiền đến Nguyễn Xuân Nhựt",
+          amount: -50000,
+        },
       ],
     },
     {
@@ -64,7 +84,7 @@ const AnUong = () => {
           style={styles.transactionIcon}
         />
       </View>
-  
+
       {/* Description + Category Section */}
       <View style={styles.transactionDetails}>
         <Text style={styles.transactionDescription} numberOfLines={3}>
@@ -78,7 +98,7 @@ const AnUong = () => {
           <Text style={styles.categoryText}>Ăn uống</Text>
         </View>
       </View>
-  
+
       {/* Amount Section */}
       <Text style={styles.transactionAmount}>
         {item.amount.toLocaleString()}đ
@@ -92,7 +112,7 @@ const AnUong = () => {
       <View style={styles.transactionDateHeader}>
         <Text style={styles.date}>{item.date}</Text>
       </View>
-      
+
       {/* Transactions List */}
       <FlatList
         data={item.data}
@@ -108,26 +128,13 @@ const AnUong = () => {
 
   /* Utility function to format the label */
   const formatLabel = (value) => {
-    return new Intl.NumberFormat('en-US').format(value) + "đ";
+    return new Intl.NumberFormat("en-US").format(value) + "đ";
   };
 
   return (
     <View style={{ flex: 1 }}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image source={require("../../assets/Family/Header/return.png")} style={styles.icon} />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Ăn Uống</Text>
-        <View style={styles.headerActions}>
-          <TouchableOpacity style={styles.iconButton}>
-            <Image source={require("../../assets/Family/Header/search.png")} style={styles.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Image source={require("../../assets/Family/Header/cancel.png")} style={styles.icon} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Ăn Uống" />
 
       {/* Chart Section (Fixed) */}
       <View style={styles.chartContainer}>
@@ -139,13 +146,20 @@ const AnUong = () => {
             <Text style={styles.buttonText}>Theo tuần</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.button, timeRange === "month" && styles.activeButton]}
+            style={[
+              styles.button,
+              timeRange === "month" && styles.activeButton,
+            ]}
             onPress={() => setTimeRange("month")}
           >
             <Text style={styles.buttonText}>Theo tháng</Text>
           </TouchableOpacity>
         </View>
-        <VictoryChart theme={VictoryTheme.material} domainPadding={20} height={Dimensions.get("window").height * 0.3}>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          domainPadding={20}
+          height={Dimensions.get("window").height * 0.3}
+        >
           {/* X Axis */}
           <VictoryAxis
             style={{
@@ -187,8 +201,9 @@ const AnUong = () => {
                 },
               },
             ]}
-            labels={({ datum, index }) =>
-              index === selectedBar ? formatLabel(datum.y) : "" // Show value above selected bar
+            labels={
+              ({ datum, index }) =>
+                index === selectedBar ? formatLabel(datum.y) : "" // Show value above selected bar
             }
             labelComponent={
               <VictoryLabel
@@ -203,9 +218,11 @@ const AnUong = () => {
         </VictoryChart>
       </View>
 
-    <Text style={styles.transactionText}>
-    {timeRange === "week" ? "Giao dịch từ 28/10 - 3/11" : "Giao dịch tháng 10"}
-    </Text>
+      <Text style={styles.transactionText}>
+        {timeRange === "week"
+          ? "Giao dịch từ 28/10 - 3/11"
+          : "Giao dịch tháng 10"}
+      </Text>
 
       {/* Transaction Section (Scrollable) */}
       <FlatList
@@ -216,38 +233,7 @@ const AnUong = () => {
       />
 
       {/* Footer */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={() => setActiveTab("home")}>
-          <Image
-            source={require("../../assets/Profile/Footer/home.png")}
-            style={[styles.iconfooter, activeTab === "home" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveTab("calendar")}>
-          <Image
-            source={require("../../assets/Profile/Footer/calendar.png")}
-            style={[styles.iconfooter, activeTab === "calendar" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveTab("more")}>
-          <Image
-            source={require("../../assets/Profile/Footer/more.png")}
-            style={[styles.iconfooter, activeTab === "more" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveTab("money")}>
-          <Image
-            source={require("../../assets/Profile/Footer/money.png")}
-            style={[styles.iconfooter, activeTab === "money" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveTab("profile")}>
-          <Image
-            source={require("../../assets/Profile/Footer/profile.png")}
-            style={[styles.iconfooter, activeTab === "profile" && styles.activeIcon]}
-          />
-        </TouchableOpacity>
-      </View>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
@@ -414,6 +400,5 @@ const styles = StyleSheet.create({
     tintColor: "blue",
   },
 });
-
 
 export default AnUong;

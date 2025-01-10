@@ -134,7 +134,10 @@ const SignUp = () => {
           />
         </View>
 
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() => navigation.navigate("Home")}
+        >
           <Text style={styles.submitButtonText}>Tiếp tục</Text>
         </TouchableOpacity>
       </View>
