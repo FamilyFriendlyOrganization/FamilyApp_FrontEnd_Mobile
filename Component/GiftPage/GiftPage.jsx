@@ -1,45 +1,24 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Ionicons, Feather, FontAwesome5 } from "@expo/vector-icons";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
+import { useNavigation } from "@react-navigation/native";
 
 const GiftPage = () => {
+  const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState(
-    "https://via.placeholder.com/300" // Hình mặc định
+    require("./assets/ImageTangQua.png")
   );
+  const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
 
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Tặng quà</Text>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity>
-            <Feather name="search" size={20} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 16 }}>
-            <Feather name="x" size={20} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Chọn người nhận */}
-      <View style={styles.selectRecipient}>
-        <TouchableOpacity style={styles.selectButton}>
-          <Text style={styles.selectText}>Chọn người nhận quà</Text>
-        </TouchableOpacity>
-        <Text style={styles.contactText}>Danh bạ</Text>
-      </View>
+      <Header title="Tặng quà" />
 
       {/* Hình ảnh quà tặng */}
       <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: selectedImage }}
-          style={styles.giftImage}
-          resizeMode="contain"
-        />
+        <Image source={selectedImage} style={styles.giftImage} />
       </View>
 
       {/* Số tiền chuyển */}
@@ -51,29 +30,33 @@ const GiftPage = () => {
       {/* Biểu tượng chủ đề */}
       <View style={styles.iconRow}>
         {[
-          { icon: "planet", label: "Space" },
-          { icon: "leaf", label: "Nature" },
-          { icon: "pen-fancy", label: "Creative" },
-          { icon: "headphones", label: "Music" },
+          { icon: "🌌", label: "Space" },
+          { icon: "⭐", label: "Star" },
+          { icon: "🎨", label: "Art" },
+          { icon: "🎧", label: "Music" },
         ].map((item, index) => (
           <TouchableOpacity
             key={index}
             style={styles.iconButton}
             onPress={() =>
-              setSelectedImage(
-                `https://via.placeholder.com/300?text=${item.label}`
-              )
+              setSelectedImage(require(`./assets/ImageTangQua.png`))
             }
           >
-            <FontAwesome5 name={item.icon} size={24} color="#7C3AED" />
+            <Text style={styles.icon}>{item.icon}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {/* Nút Viết lời nhắn */}
-      <TouchableOpacity style={styles.messageButton}>
-        <Text style={styles.messageButtonText}>Viết lời nhắn</Text>
+      {/* Nút Tiếp tục */}
+      <TouchableOpacity
+        style={styles.continueButton}
+        onPress={() => navigation.navigate("GiftPage1")}
+      >
+        <Text style={styles.continueButtonText}>Tiếp tục</Text>
       </TouchableOpacity>
+
+      {/* Footer */}
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
@@ -83,59 +66,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-  header: {
-    paddingTop: 40,
-    backgroundColor: "#7C3AED",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  headerText: {
-    position: "absolute",
-    top: 39,
-    left: 50,
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  iconContainer: {
-    flexDirection: "row",
-  },
-  selectRecipient: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 16,
-    marginHorizontal: 20,
-  },
-  selectButton: {
-    backgroundColor: "#F3F3F3",
-    padding: 10,
-    borderRadius: 8,
-  },
-  selectText: {
-    color: "#7C3AED",
-    fontWeight: "bold",
-  },
-  contactText: {
-    color: "#E91E63",
-    fontWeight: "bold",
-  },
   imageContainer: {
-    alignItems: "center",
     marginVertical: 20,
+    alignItems: "center",
+    marginBottom: 20,
+    marginTop: 100,
   },
   giftImage: {
-    width: 200,
-    height: 200,
+    width: 280,
+    height: 180,
     borderRadius: 10,
-    borderColor: "#E0E0E0",
-    borderWidth: 2,
+    borderWidth: 3,
+    borderColor: "#FF4081",
   },
   amountContainer: {
     alignItems: "center",
-    marginVertical: 10,
+    marginVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E0E0E0",
+    paddingBottom: 10,
+    width: "90%",
+    alignSelf: "center",
   },
   amountLabel: {
     color: "#757575",
@@ -149,25 +100,31 @@ const styles = StyleSheet.create({
   iconRow: {
     flexDirection: "row",
     justifyContent: "space-around",
+    width: "90%",
+    alignSelf: "center",
     marginVertical: 20,
-    marginHorizontal: 20,
+    marginBottom: 300,
   },
   iconButton: {
     backgroundColor: "#F3F3F3",
-    padding: 12,
-    borderRadius: 10,
+    padding: 14,
+    borderRadius: 12,
     alignItems: "center",
   },
-  messageButton: {
-    backgroundColor: "#E91E63",
-    borderRadius: 8,
+  icon: {
+    fontSize: 24,
+  },
+  continueButton: {
+    backgroundColor: "#FF4081",
     paddingVertical: 12,
+    borderRadius: 8,
     marginHorizontal: 20,
     alignItems: "center",
+    marginTop: -100,
   },
-  messageButtonText: {
+  continueButtonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
 });

@@ -26,6 +26,12 @@ import DiChuyen from "./Component/QuanLy/DiChuyen";
 import Notification from "./Component/Notification/Notification";
 import NotificationDetail from "./Component/Notification/DetailNotification";
 import FamilyManagement from "./Component/Family/FamilyManagement";
+import FlightBookingPage from "./Component/More/FeatureMore/FlightBookingPage/FlightBookingPage";
+import FlightSearchResultsPage from "./Component/More/FeatureMore/FlightBookingPage/FlightSearchResultsPage";
+import PassengerInfoPage from "./Component/More/FeatureMore/FlightBookingPage/PassengerInfoPag";
+import HotelSearchPage from "./Component/More/FeatureMore/FlightBookingPage/HotelSearchPage";
+import HotelSearch from "./Component/More/FeatureMore/FlightBookingPage/HotelSearch";
+import RoomDetailPage from "./Component/More/FeatureMore/FlightBookingPage/RoomDetailPage";
 
 const Stack = createStackNavigator();
 
@@ -73,6 +79,15 @@ export default function App() {
           component={NotificationDetail}
         />
         <Stack.Screen name="FamilyManagement" component={FamilyManagement} />
+        <Stack.Screen name="FlightBookingPage" component={FlightBookingPage} />
+        <Stack.Screen
+          name="FlightSearchResultsPage"
+          component={FlightSearchResultsPage}
+        />
+        <Stack.Screen name="PassengerInfoPage" component={PassengerInfoPage} />
+        <Stack.Screen name="HotelSearchPage" component={HotelSearchPage} />
+        <Stack.Screen name="HotelSearch" component={HotelSearch} />
+        <Stack.Screen name="RoomDetailPage" component={RoomDetailPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

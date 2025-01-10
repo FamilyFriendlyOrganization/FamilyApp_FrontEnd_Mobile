@@ -1,37 +1,29 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Ionicons, Feather } from "@expo/vector-icons";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
+import { Dimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+const screenWidth = Dimensions.get("window").width;
 
 const GiftPage1 = () => {
   const [message, setMessage] = useState(
     "Một ngày thật năng động và vui vẻ nhé bạn yêu!"
   );
   const [sender, setSender] = useState("Từ Huỳnh Minh Triết");
+  const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Tặng quà</Text>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity>
-            <Feather name="search" size={20} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 16 }}>
-            <Feather name="x" size={20} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Tặng quà" />
 
       {/* Hình ảnh quà tặng */}
       <View style={styles.imageContainer}>
         <Image
-          source={{
-            uri: "https://via.placeholder.com/300x200.png?text=Gift+Image",
-          }}
+          source={require("./assets/ImageTangQua.png")}
           style={styles.giftImage}
           resizeMode="contain"
         />
@@ -45,13 +37,22 @@ const GiftPage1 = () => {
 
       {/* Nút hành động */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.editButton}>
-          <Text style={styles.editButtonText}>Chỉnh sửa lời nhắn</Text>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => navigation.navigate("GiftPage")}
+        >
+          <Text style={styles.editButtonText}>Chỉnh sửa số tiền</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sendButton}>
+        <TouchableOpacity
+          style={styles.sendButton}
+          onPress={() => navigation.navigate("TransactionResultPage")}
+        >
           <Text style={styles.sendButtonText}>Gửi quà</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Footer */}
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
@@ -61,49 +62,31 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-  header: {
-    paddingTop: 40,
-    backgroundColor: "#7C3AED",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  headerText: {
-    position: "absolute",
-    top: 39,
-    left: 50,
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  iconContainer: {
-    flexDirection: "row",
-  },
   imageContainer: {
     alignItems: "center",
     marginVertical: 20,
+    marginTop: 80,
   },
   giftImage: {
-    width: 300,
-    height: 200,
+    width: screenWidth * 0.8,
+    height: screenWidth * 0.5,
     borderRadius: 10,
     borderColor: "#FF6F61",
     borderWidth: 4,
   },
   messageBox: {
     backgroundColor: "#FF6F61",
-    padding: 8,
+    padding: 10,
     borderRadius: 5,
     marginTop: -20,
     alignItems: "center",
-    width: "80%",
+    width: "90%",
   },
   messageText: {
     color: "white",
     fontSize: 14,
     textAlign: "center",
+    fontWeight: "bold",
   },
   senderText: {
     textAlign: "center",
@@ -116,7 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 20,
-    marginTop: 30,
+    marginTop: 50,
   },
   editButton: {
     backgroundColor: "#F3F3F3",

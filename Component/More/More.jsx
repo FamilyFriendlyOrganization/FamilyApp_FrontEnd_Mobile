@@ -8,38 +8,77 @@ import {
   ScrollView,
 } from "react-native";
 import { useState } from "react";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
+import { useNavigation } from "@react-navigation/native";
 
 const More = () => {
-  const [activeTab, setActiveTab] = useState("home"); // Tab hiện đang được chọn
-
+  const navigation = useNavigation();
+  const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
   const services = {
     pinned: [
       {
         icon: require("./assets/QuanLyChiTieu.png"),
         label: "Quản lý chi tiêu",
+        navigateTo: "ChiTieu", // Định nghĩa màn hình để điều hướng
       },
-      { icon: require("./assets/DatLich.png"), label: "Đặt lịch" },
-      { icon: require("./assets/NhanTien.png"), label: "Nhận tiền" },
-      { icon: require("./assets/ChuyenTien.png"), label: "Chuyển tiền" },
+      {
+        icon: require("./assets/DatLich.png"),
+        label: "Đặt lịch",
+        navigateTo: "AppCalendar",
+      },
+      {
+        icon: require("./assets/NhanTien.png"),
+        label: "Nhận tiền",
+        navigateTo: "ReceiveMoney",
+      },
+      {
+        icon: require("./assets/ChuyenTien.png"),
+        label: "Chuyển tiền",
+        navigateTo: "TransferMoneyPage",
+      },
       {
         icon: require("./assets/ThemThanhVien.png"),
         label: "Thêm thành viên",
+        navigateTo: "Family",
       },
-      { icon: require("./assets/TangQua.png"), label: "Tặng quà" },
-      { icon: require("./assets/GiaDinh.png"), label: "Gia đình" },
+      {
+        icon: require("./assets/TangQua.png"),
+        label: "Tặng quà",
+        navigateTo: "GiftPage",
+      },
+      {
+        icon: require("./assets/GiaDinh.png"),
+        label: "Gia đình",
+        navigateTo: "FamilyManagement",
+      },
       {
         icon: require("./assets/DatVeMayBay.png"),
         label: "Đặt vé máy bay",
+        navigateTo: "FlightBookingPage",
       },
     ],
     popular: [
       {
         icon: require("./assets/QuanLyChiTieu.png"),
         label: "Quản lý chi tiêu",
+        navigateTo: "ChiTieu",
       },
-      { icon: require("./assets/DatLich.png"), label: "Đặt lịch" },
-      { icon: require("./assets/NhanTien.png"), label: "Nhận tiền" },
-      { icon: require("./assets/ChuyenTien.png"), label: "Chuyển tiền" },
+      {
+        icon: require("./assets/DatLich.png"),
+        label: "Đặt lịch",
+        navigateTo: "AppCalendar",
+      },
+      {
+        icon: require("./assets/NhanTien.png"),
+        label: "Nhận tiền",
+        navigateTo: "ReceiveMoney",
+      },
+      {
+        icon: require("./assets/ChuyenTien.png"),
+        label: "Chuyển tiền",
+        navigateTo: "TransferMoneyPage",
+      },
       { icon: require("./assets/DuLich.png"), label: "Du lịch" },
       { icon: require("./assets/QuanAo.png"), label: "Quần áo" },
       { icon: require("./assets/GoiYPhim.png"), label: "Gợi ý phim" },
@@ -57,10 +96,18 @@ const More = () => {
       <Text style={styles.groupTitle}>{title}</Text>
       <View style={styles.serviceContainer}>
         {items.map((item, index) => (
-          <View key={index} style={styles.serviceItem}>
+          <TouchableOpacity
+            key={index}
+            style={styles.serviceItem}
+            onPress={() => {
+              if (item.navigateTo) {
+                navigation.navigate(item.navigateTo); // Điều hướng khi nhấn vào icon
+              }
+            }}
+          >
             <Image source={item.icon} style={styles.serviceFullIcon} />
             <Text style={styles.serviceLabel}>{item.label}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
     </View>
@@ -68,35 +115,14 @@ const More = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image
-            source={require("../../assets/Family/Header/return.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Các tính năng khác</Text>
-        <View style={styles.headerActions}>
-          <TouchableOpacity style={styles.iconButton}>
-            <Image
-              source={require("../../assets/Family/Header/search.png")}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Image
-              source={require("../../assets/Family/Header/cancel.png")}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Các tính năng khác" />
       {/* Scrollable Content */}
       <ScrollView style={styles.scrollView}>
         {renderServiceGroup("Dịch vụ được ghim", services.pinned)}
         {renderServiceGroup("Dịch vụ phổ biến", services.popular)}
         {renderServiceGroup("Thanh toán hóa đơn", services.bills)}
       </ScrollView>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
@@ -105,12 +131,12 @@ const styles = StyleSheet.create({
   // Header styles
   header: {
     flexDirection: "row",
-    alignItems: "flex-end", // Đặt tất cả các phần tử căn về phía dưới
+    alignItems: "flex-end",
     justifyContent: "space-between",
     backgroundColor: "#6A0DAD",
     padding: 25,
     paddingHorizontal: 15,
-    height: 100, // Đặt chiều cao cụ thể cho header
+    height: 100,
   },
   headerText: {
     color: "white",
@@ -131,13 +157,14 @@ const styles = StyleSheet.create({
 
   // Service group styles
   scrollView: {
+    marginTop: 10,
     padding: 10,
   },
   serviceGroup: {
     marginBottom: 20,
   },
   groupTitle: {
-    fontSize: 16,
+    fontSize: 25,
     fontWeight: "bold",
     marginBottom: 10,
   },
@@ -151,13 +178,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   serviceFullIcon: {
-    width: 50, // Điều chỉnh kích thước icon
+    width: 50,
     height: 50,
-    resizeMode: "contain", // Đảm bảo icon giữ nguyên tỉ lệ và không bị tràn
+    resizeMode: "contain",
     marginBottom: 5,
   },
   serviceLabel: {
-    fontSize: 12,
+    fontSize: 18,
     textAlign: "center",
   },
 });
