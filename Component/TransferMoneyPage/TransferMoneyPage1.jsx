@@ -13,28 +13,20 @@ import {
   FontAwesome5,
   MaterialIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
 
 const TransferMoneyPage1 = () => {
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
+  const navigation = useNavigation();
+  const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
 
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Chuyển tiền</Text>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity>
-            <Feather name="search" size={20} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 16 }}>
-            <Feather name="x" size={20} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Chuyển tiền" />
 
       {/* Thông tin người nhận */}
       <View style={styles.receiverContainer}>
@@ -66,7 +58,7 @@ const TransferMoneyPage1 = () => {
       </View>
 
       {/* Phân loại chi tiêu */}
-      <View style={styles.categoryContainer}>
+      {/* <View style={styles.categoryContainer}>
         <Text style={styles.sectionTitle}>Phân loại chi tiêu</Text>
         <View style={styles.categoryRow}>
           {[
@@ -81,12 +73,16 @@ const TransferMoneyPage1 = () => {
             </TouchableOpacity>
           ))}
         </View>
-      </View>
+      </View> */}
 
       {/* Nút Chuyển tiền */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("TransactionResultPage")}
+      >
         <Text style={styles.buttonText}>Chuyển tiền</Text>
       </TouchableOpacity>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
@@ -192,6 +188,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   button: {
+    marginTop: 500,
     backgroundColor: "#E91E63",
     borderRadius: 10,
     margin: 16,

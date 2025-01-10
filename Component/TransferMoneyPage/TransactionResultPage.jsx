@@ -1,25 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
 
 const TransactionResultPage = () => {
+  const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
+
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Chuyển tiền</Text>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity>
-            <Feather name="search" size={20} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 16 }}>
-            <Feather name="x" size={20} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Kết quả giao dịch" />
 
       {/* Nội dung chính */}
       <View style={styles.content}>
@@ -64,6 +55,7 @@ const TransactionResultPage = () => {
           </View>
         </View>
       </View>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };

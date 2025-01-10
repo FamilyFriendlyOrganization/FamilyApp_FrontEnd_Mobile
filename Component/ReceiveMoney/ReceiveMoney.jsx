@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,25 +8,15 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
 
 const ReceiveMoneyPage = () => {
+  const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Nhận tiền</Text>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity>
-            <Feather name="search" size={20} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 16 }}>
-            <Feather name="x" size={20} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header title="Nhận tiền" />
 
       {/* QR nhận tiền */}
       <View style={styles.qrContainer}>
@@ -96,8 +86,8 @@ const ReceiveMoneyPage = () => {
           </View>
         ))}
       </View>
+      <Footer setActiveTab={setActiveTab} />
     </ScrollView>
-    
   );
 };
 

@@ -9,6 +9,9 @@ import {
   TextInput,
 } from "react-native";
 import { Ionicons, Feather, FontAwesome5 } from "@expo/vector-icons";
+import Header from "../Component/Header";
+import Footer from "../Component/Footer";
+import { useNavigation } from "@react-navigation/native";
 
 const data = Array.from({ length: 15 }).map((_, index) => ({
   id: index,
@@ -21,6 +24,8 @@ const ITEMS_PER_PAGE = 6;
 const TransferMoneyPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
+  const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
+  const navigation = useNavigation();
 
   const getCurrentPageData = () => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -30,50 +35,7 @@ const TransferMoneyPage = () => {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Chuyển tiền</Text>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity>
-            <Feather name="search" size={20} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 16 }}>
-            <Feather name="x" size={20} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Search Bar */}
-      <View style={styles.searchBar}>
-        <Feather name="search" size={20} color="#BDBDBD" />
-        <TextInput
-          placeholder="Tìm kiếm tên bạn bè..."
-          placeholderTextColor="#BDBDBD"
-          style={styles.searchInput}
-          editable={false}
-        />
-      </View>
-
-      {/* Menu Items */}
-      <View style={styles.menuContainer}>
-        {[
-          { name: "Đến Ngân hàng", icon: "university", color: "#7C3AED" },
-          {
-            name: "Đến thành viên gia đình",
-            icon: "user-friends",
-            color: "#2196F3",
-          },
-          { name: "Quét mã QR", icon: "qrcode", color: "#E91E63" },
-          { name: "Gửi quà", icon: "gift", color: "#9C27B0" },
-        ].map((item, index) => (
-          <TouchableOpacity style={styles.menuItem} key={index}>
-            <FontAwesome5 name={item.icon} size={30} color={item.color} />
-            <Text style={styles.menuText}>{item.name}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <Header title="Chuyển tiền" />
 
       {/* Đề xuất */}
       <FlatList
@@ -82,10 +44,15 @@ const TransferMoneyPage = () => {
         numColumns={3}
         ListHeaderComponent={<Text style={styles.sectionTitle}>Đề xuất</Text>}
         renderItem={({ item }) => (
-          <View style={styles.suggestionItem}>
+          <TouchableOpacity
+            style={styles.suggestionItem}
+            onPress={() =>
+              navigation.navigate("TransferMoneyPage1", { user: item })
+            }
+          >
             <Image source={{ uri: item.image }} style={styles.avatar} />
             <Text style={styles.suggestionName}>{item.name}</Text>
-          </View>
+          </TouchableOpacity>
         )}
         ListFooterComponent={
           <View style={styles.pagination}>
@@ -137,6 +104,7 @@ const TransferMoneyPage = () => {
           </View>
         }
       />
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
 };
