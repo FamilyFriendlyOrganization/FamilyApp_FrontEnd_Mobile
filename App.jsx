@@ -25,6 +25,7 @@ import MuaSam from "./Component/QuanLy/MuaSam";
 import DiChuyen from "./Component/QuanLy/DiChuyen";
 import Notification from "./Component/Notification/Notification";
 import NotificationDetail from "./Component/Notification/DetailNotification";
+import FamilyManagement from "./Component/Family/FamilyManagement";
 
 const Stack = createStackNavigator();
 
@@ -71,6 +72,7 @@ export default function App() {
           name="NotificationDetail"
           component={NotificationDetail}
         />
+        <Stack.Screen name="FamilyManagement" component={FamilyManagement} />
       </Stack.Navigator>
     </NavigationContainer>
   );

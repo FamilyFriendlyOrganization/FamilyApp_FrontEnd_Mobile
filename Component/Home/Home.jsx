@@ -58,7 +58,7 @@ const Home = () => {
     navigation.navigate("GiftPage");
   };
   const handleGiaDinh = async () => {
-    navigation.navigate("Family");
+    navigation.navigate("FamilyManagement");
   };
   const handleCacChucNangKhac = async () => {
     navigation.navigate("More");
@@ -163,7 +163,7 @@ const Home = () => {
             <Text style={styles.label}>Tặng quà</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.item} onPress={handleThemGiaDinh}>
+          <TouchableOpacity style={styles.item} onPress={handleGiaDinh}>
             <Image source={giaDinhIcon} style={styles.mainIcon} />
             <Text style={styles.label}>Gia đình</Text>
           </TouchableOpacity>
