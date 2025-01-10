@@ -79,9 +79,21 @@ const More = () => {
         label: "Chuyển tiền",
         navigateTo: "TransferMoneyPage",
       },
-      { icon: require("./assets/DuLich.png"), label: "Du lịch" },
-      { icon: require("./assets/QuanAo.png"), label: "Quần áo" },
-      { icon: require("./assets/GoiYPhim.png"), label: "Gợi ý phim" },
+      {
+        icon: require("./assets/DuLich.png"),
+        label: "Du lịch",
+        navigateTo: "TravelDestinationsPage",
+      },
+      {
+        icon: require("./assets/QuanAo.png"),
+        label: "Quần áo",
+        navigateTo: "ClothingPage",
+      },
+      {
+        icon: require("./assets/GoiYPhim.png"),
+        label: "Gợi ý phim",
+        navigateTo: "MovieSuggestionsPage",
+      },
     ],
     bills: [
       { icon: require("./assets/TienDien.png"), label: "Tiền điện" },

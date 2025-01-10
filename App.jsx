@@ -32,6 +32,9 @@ import PassengerInfoPage from "./Component/More/FeatureMore/FlightBookingPage/Pa
 import HotelSearchPage from "./Component/More/FeatureMore/FlightBookingPage/HotelSearchPage";
 import HotelSearch from "./Component/More/FeatureMore/FlightBookingPage/HotelSearch";
 import RoomDetailPage from "./Component/More/FeatureMore/FlightBookingPage/RoomDetailPage";
+import TravelDestinationsPage from "./Component/More/FeatureMore/PopularService.jsx/TravelDestinationsPage";
+import ClothingPage from "./Component/More/FeatureMore/PopularService.jsx/ClothingPage";
+import MovieSuggestionsPage from "./Component/More/FeatureMore/PopularService.jsx/MovieSuggestionsPage";
 
 const Stack = createStackNavigator();
 
@@ -88,6 +91,15 @@ export default function App() {
         <Stack.Screen name="HotelSearchPage" component={HotelSearchPage} />
         <Stack.Screen name="HotelSearch" component={HotelSearch} />
         <Stack.Screen name="RoomDetailPage" component={RoomDetailPage} />
+        <Stack.Screen
+          name="TravelDestinationsPage"
+          component={TravelDestinationsPage}
+        />
+        <Stack.Screen name="ClothingPage" component={ClothingPage} />
+        <Stack.Screen
+          name="MovieSuggestionsPage"
+          component={MovieSuggestionsPage}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
