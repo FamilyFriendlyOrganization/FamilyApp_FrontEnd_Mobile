@@ -185,7 +185,8 @@ const styles = StyleSheet.create({
   // Service group styles
   scrollView: {
     marginTop: 10,
-    padding: 10,
+    marginBottom: 100,
+    padding: 1,
   },
   serviceGroup: {
     marginBottom: 20,

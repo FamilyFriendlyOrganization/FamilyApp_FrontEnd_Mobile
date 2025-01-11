@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
 
   notificationContainer: {
-    marginLeft: 200,
+    marginLeft: 170,
     marginBottom: 35,
     marginHorizontal: 10,
   },

@@ -7,19 +7,14 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import {
-  Ionicons,
-  Feather,
-  FontAwesome5,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 
 const TransferMoneyPage1 = () => {
-  const [amount, setAmount] = useState("");
-  const [message, setMessage] = useState("");
+  const [amount, setAmount] = useState(""); // Trạng thái lưu số tiền
+  const [message, setMessage] = useState(""); // Trạng thái lưu tin nhắn
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
 
@@ -42,43 +37,44 @@ const TransferMoneyPage1 = () => {
 
       {/* Nhập số tiền */}
       <View style={styles.amountContainer}>
-        <Text style={styles.amount}>0đ</Text>
+        <Text style={styles.amount}>
+          {amount ? `${amount}đ` : "0đ"} {/* Hiển thị số tiền đã nhập */}
+        </Text>
         <Text style={styles.amountLabel}>Vui lòng nhập số tiền</Text>
         <View style={styles.inputContainer}>
           <TextInput
-            placeholder="Nhập tin nhắn bạn muốn gửi"
+            placeholder="Nhập số tiền"
             style={styles.input}
-            value={message}
-            onChangeText={setMessage}
+            value={amount}
+            onChangeText={(text) => setAmount(text.replace(/[^0-9]/g, ""))} // Chỉ cho phép nhập số
+            keyboardType="numeric" // Hiển thị bàn phím số
           />
-          <TouchableOpacity>
-            <MaterialIcons name="attach-money" size={24} color="#E91E63" />
-          </TouchableOpacity>
         </View>
       </View>
 
-      {/* Phân loại chi tiêu */}
-      {/* <View style={styles.categoryContainer}>
-        <Text style={styles.sectionTitle}>Phân loại chi tiêu</Text>
-        <View style={styles.categoryRow}>
-          {[
-            { name: "Ăn uống", icon: "utensils", color: "#4CAF50" },
-            { name: "Mua sắm", icon: "shopping-cart", color: "#2196F3" },
-            { name: "Di chuyển", icon: "car", color: "#FF9800" },
-            { name: "Khác", icon: "ellipsis-h", color: "#9C27B0" },
-          ].map((item, index) => (
-            <TouchableOpacity key={index} style={styles.categoryItem}>
-              <FontAwesome5 name={item.icon} size={24} color={item.color} />
-              <Text style={styles.categoryText}>{item.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View> */}
+      {/* Nhập tin nhắn */}
+      <View style={styles.inputContainerMessage}>
+        <TextInput
+          placeholder="Nhập tin nhắn bạn muốn gửi"
+          style={styles.input}
+          value={message}
+          onChangeText={setMessage}
+        />
+      </View>
 
       {/* Nút Chuyển tiền */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("TransactionResultPage")}
+        onPress={() => {
+          if (!amount) {
+            alert("Vui lòng nhập số tiền!");
+          } else {
+            navigation.navigate("TransactionResultPage", {
+              amount,
+              message,
+            });
+          }
+        }}
       >
         <Text style={styles.buttonText}>Chuyển tiền</Text>
       </TouchableOpacity>
@@ -91,26 +87,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-  },
-  header: {
-    paddingTop: 40,
-    backgroundColor: "#7C3AED",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  headerText: {
-    position: "absolute",
-    top: 39,
-    left: 50,
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  iconContainer: {
-    flexDirection: "row",
   },
   receiverContainer: {
     flexDirection: "row",
@@ -166,26 +142,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#333",
   },
-  categoryContainer: {
-    marginTop: 20,
-    marginHorizontal: 16,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  categoryRow: {
+  inputContainerMessage: {
     flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  categoryItem: {
     alignItems: "center",
-    flex: 1,
-  },
-  categoryText: {
-    fontSize: 12,
-    marginTop: 5,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginHorizontal: 16,
+    marginTop: 16,
   },
   button: {
     marginTop: 50,

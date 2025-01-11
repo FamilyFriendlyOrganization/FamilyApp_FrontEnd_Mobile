@@ -14,10 +14,6 @@ const SelectFamily = () => {
   const [selectedFamily, setSelectedFamily] = React.useState("");
   const navigation = useNavigation();
 
-  const handleTiepTuc = async () => {
-    navigation.navigate("Home");
-  };
-
   return (
     <View style={styles.container}>
       {/* Background Image */}
@@ -55,7 +51,10 @@ const SelectFamily = () => {
 
         {/* Continue Button */}
         <TouchableOpacity style={styles.continueButton}>
-          <Text style={styles.continueButtonText} onPress={handleTiepTuc}>
+          <Text
+            style={styles.continueButtonText}
+            onPress={() => navigation.navigate("Home")}
+          >
             Tiếp tục
           </Text>
         </TouchableOpacity>

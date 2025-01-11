@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   rememberText: {
     position: "relative",
-    left: -230,
+    left: -180,
     fontSize: 14,
     color: "#333",
     marginRight: 20, // Giữ khoảng cách với nút "Quên mật khẩu"

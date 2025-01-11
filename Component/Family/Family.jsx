@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   Image,
   StyleSheet,
-  TextInput,
   FlatList,
   ScrollView,
+  Alert,
 } from "react-native";
-import { useState } from "react";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 
@@ -46,6 +45,13 @@ const familyMembers = [
 
 const Family = () => {
   const [activeTab, setActiveTab] = useState(""); // Tab hiện đang được chọn
+
+  // Hàm hiển thị thông báo với mã cố định
+  const handleCreateInvitation = () => {
+    const fixedCode = "123456";
+    Alert.alert("Lời mời được tạo", `Mã lời mời: ${fixedCode}`);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       {/* Header */}
@@ -55,12 +61,13 @@ const Family = () => {
         {/* Search and Add Member Section */}
         <View style={styles.searchContainer}>
           <Text style={styles.familyTitle}>Gia đình Batman</Text>
-          <TouchableOpacity style={styles.addButton}>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={handleCreateInvitation}
+          >
             <Text style={styles.addButtonText}>Tạo lời mời</Text>
           </TouchableOpacity>
         </View>
-
-        {/* Family Title */}
 
         {/* Family Members List */}
         <FlatList
@@ -103,7 +110,7 @@ const Family = () => {
         </ScrollView>
       </View>
 
-      {/* Phần Footer */}
+      {/* Footer */}
       <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
     </View>
   );
@@ -164,6 +171,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 5,
+    marginLeft: -70,
   },
   addButtonText: {
     color: "white",
